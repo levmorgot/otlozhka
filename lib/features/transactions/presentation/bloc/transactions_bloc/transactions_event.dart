@@ -36,5 +36,7 @@ class GetTransactionEvent extends TransactionsEvent {
   List<Object> get props => [id];
 }
 
-class GetTransactionsEvent extends TransactionsEvent {}
+class GetTransactionsEvent extends TransactionsEvent {
+  const GetTransactionsEvent();
+}
 
