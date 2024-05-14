@@ -1,8 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:otlozhka/features/transactions/domain/usecases/params/add_transaction_category_params.dart';
-import 'package:otlozhka/features/transactions/domain/usecases/params/add_transaction_params.dart';
 import 'package:otlozhka/features/transactions/domain/usecases/params/change_transaction_category_params.dart';
-import 'package:otlozhka/features/transactions/domain/usecases/params/change_transaction_params.dart';
 
 abstract class TransactionCategoriesEvent extends Equatable {
   const TransactionCategoriesEvent();

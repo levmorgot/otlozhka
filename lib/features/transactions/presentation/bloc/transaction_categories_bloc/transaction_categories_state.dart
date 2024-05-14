@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:otlozhka/features/transactions/domain/entities/transaction_category_entity.dart';
-import 'package:otlozhka/features/transactions/domain/entities/transaction_entity.dart';
 
 abstract class TransactionCategoriesState extends Equatable {
   const TransactionCategoriesState();

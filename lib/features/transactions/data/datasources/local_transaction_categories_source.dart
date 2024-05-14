@@ -5,9 +5,7 @@ import 'package:otlozhka/core/error/failure.dart';
 import 'package:otlozhka/features/transactions/domain/entities/transaction_category_entity.dart';
 import 'package:otlozhka/features/transactions/domain/entities/transaction_entity.dart';
 import 'package:otlozhka/features/transactions/domain/usecases/params/add_transaction_category_params.dart';
-import 'package:otlozhka/features/transactions/domain/usecases/params/add_transaction_params.dart';
 import 'package:otlozhka/features/transactions/domain/usecases/params/change_transaction_category_params.dart';
-import 'package:otlozhka/features/transactions/domain/usecases/params/change_transaction_params.dart';
 
 abstract class TransactionCategorySource {
   Future<Either<Failure, TransactionCategory>> addTransactionCategory(AddTransactionCategoryParams params);

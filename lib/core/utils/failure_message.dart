@@ -1,7 +1,8 @@
 import 'package:otlozhka/core/error/failure.dart';
+import 'package:otlozhka/core/utils/app_logger.dart';
 
 String mapFailureMessage(Failure failure) {
-  print('${failure.errorMessage} in ${failure.functionName} function');
+  log('${failure.errorMessage} in ${failure.functionName} function');
 
   return '${failure.runtimeType} ${failure.errorMessage} in ${failure.functionName} function';
 }

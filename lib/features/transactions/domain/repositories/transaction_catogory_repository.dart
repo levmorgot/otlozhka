@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 import 'package:otlozhka/core/error/failure.dart';
 import 'package:otlozhka/features/transactions/domain/entities/transaction_category_entity.dart';
 import 'package:otlozhka/features/transactions/domain/entities/transaction_entity.dart';

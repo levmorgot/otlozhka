@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:otlozhka/features/transactions/domain/entities/transaction_entity.dart';
 
 class ChangeTransactionCategoryParams extends Equatable {
   final int id;
