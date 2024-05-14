@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:intl/intl.dart';
 import 'package:otlozhka/core/utils/extensoins.dart';
 import 'package:otlozhka/features/transactions/domain/entities/transaction_entity.dart';
 import 'package:otlozhka/features/transactions/presentation/bloc/transaction_categories_bloc/transaction_categories_bloc.dart';
@@ -74,7 +73,7 @@ class FormTransactionsWidget extends StatelessWidget {
               }
               return const SizedBox();
             }),
-            Gap(20),
+            const Gap(20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40.0),
               child: Row(
