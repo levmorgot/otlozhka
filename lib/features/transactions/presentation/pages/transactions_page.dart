@@ -90,7 +90,9 @@ class _TransactionsPageState extends State<TransactionsPage> with TickerProvider
                 type: _selectedIndex == 0 ? TransactionType.expense : TransactionType.income,
               ),
             );
+
           },
+          child: Icon(Icons.add),
         ),
         body: BlocBuilder<TransactionsBloc, TransactionsState>(builder: (context, state) {
           if (state is TransactionsLoadedState) {
