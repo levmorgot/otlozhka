@@ -48,7 +48,7 @@ class _AddTransactionsPageState extends State<AddTransactionsPage> with TickerPr
           leading: IconButton(onPressed: () {
             AutoRouter.of(context).maybePop();
           },
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
           ),
           title: const Text('Добавление операции'),
           bottom: PreferredSize(

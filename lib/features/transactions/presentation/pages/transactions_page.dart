@@ -92,7 +92,7 @@ class _TransactionsPageState extends State<TransactionsPage> with TickerProvider
             );
 
           },
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
         ),
         body: BlocBuilder<TransactionsBloc, TransactionsState>(builder: (context, state) {
           if (state is TransactionsLoadedState) {
