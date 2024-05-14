@@ -42,8 +42,8 @@ class TransactionsDatabase {
 
   Future _createDatabase(Database database, int version) async {
     const idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
-    const intType = 'INTEGER NOT NULL';
-    const doubleType = 'REAL NOT NULL';
+    const nullableIntType = 'INTEGER';
+    const doubleType = 'REAL';
     const stringType = 'TEXT NOT NULL';
     const nullableStringType = 'TEXT';
 
@@ -55,20 +55,19 @@ class TransactionsDatabase {
       ${TransactionCategoryFields.icon} $stringType,
       ${TransactionCategoryFields.color} $stringType,
       ${TransactionCategoryFields.maxMonthAmount} $doubleType,
-      ${TransactionCategoryFields.createdAt} $stringType,
+      ${TransactionCategoryFields.createdAt} $stringType
     )
     ''');
 
     await database.execute('''
     CREATE TABLE ${tr.tableTransactions} (
       ${tr.TransactionFields.id} $idType,
-      ${tr.TransactionFields.categoryId} $intType,
-      ${tr.TransactionFields.type} $nullableStringType,
-      ${tr.TransactionFields.name} $nullableStringType,
+      ${tr.TransactionFields.categoryId} $nullableIntType,
+      ${tr.TransactionFields.type} $stringType,
       ${tr.TransactionFields.amount} $doubleType,
       ${tr.TransactionFields.transactionDate} $stringType,
       ${tr.TransactionFields.createdAt} $stringType,
-      ${tr.TransactionFields.comment} $nullableStringType,
+      ${tr.TransactionFields.comment} $nullableStringType
     )
     ''');
   }
@@ -87,8 +86,7 @@ class TransactionsDatabase {
       final database = await this.database;
       final values = {
         tr.TransactionFields.categoryId: params.categoryId,
-        tr.TransactionFields.type: params.type,
-        tr.TransactionFields.name: params.name,
+        tr.TransactionFields.type: EnumUtil.toJson(params.type),
         tr.TransactionFields.amount: params.amount,
         tr.TransactionFields.transactionDate: params.transactionDate.toIso8601String(),
         tr.TransactionFields.createdAt: DateTime.now().toIso8601String(),
@@ -142,7 +140,6 @@ class TransactionsDatabase {
             .copyWith(
               categoryId: params.categoryId,
               type: params.type,
-              name: params.name,
               amount: params.amount,
               transactionDate: params.transactionDate,
               comment: params.comment,
@@ -378,21 +375,7 @@ class TransactionsDatabase {
       type: tr.TransactionType.income,
       createdAt: DateTime.now(),
     ),
-    TransactionCategory(
-      id: 10,
-      name: 'Другое',
-      icon: Assets.images.transactions.other.path,
-      color: Colors.blueGrey[200]!,
-      type: tr.TransactionType.expense,
-      createdAt: DateTime.now(),
-    ),
-    TransactionCategory(
-      id: 11,
-      name: 'Другое',
-      icon: Assets.images.transactions.other.path,
-      color: Colors.blueGrey[200]!,
-      type: tr.TransactionType.income,
-      createdAt: DateTime.now(),
-    ),
+    TransactionCategory.otherCategory(tr.TransactionType.expense),
+    TransactionCategory.otherCategory(tr.TransactionType.income),
   ];
 }

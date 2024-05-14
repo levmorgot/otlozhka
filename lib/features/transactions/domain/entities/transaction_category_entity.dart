@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:otlozhka/core/utils/enum.dart';
 import 'package:otlozhka/core/utils/extensoins.dart';
 import 'package:otlozhka/features/transactions/domain/entities/transaction_entity.dart';
+import 'package:otlozhka/generated/assets.gen.dart';
 
 const String tableTransactionCategories = 'transaction_categories';
 
@@ -51,8 +52,7 @@ class TransactionCategory extends Equatable {
         name,
         color,
         icon,
-    maxMonthAmount,
-        createdAt,
+        maxMonthAmount,
       ];
 
   factory TransactionCategory.fromJson(Map<String, dynamic> json) {
@@ -72,7 +72,7 @@ class TransactionCategory extends Equatable {
       TransactionCategoryFields.id: id,
       TransactionCategoryFields.type: EnumUtil.toJson(type),
       TransactionCategoryFields.name: name,
-      TransactionCategoryFields.color: color,
+      TransactionCategoryFields.color: color.toHex(),
       TransactionCategoryFields.icon: icon,
       TransactionCategoryFields.maxMonthAmount: maxMonthAmount,
       TransactionCategoryFields.createdAt: createdAt.toIso8601String(),
@@ -95,4 +95,15 @@ class TransactionCategory extends Equatable {
         maxMonthAmount: maxMonthAmount ?? this.maxMonthAmount,
         createdAt: createdAt,
       );
+
+  static TransactionCategory otherCategory(TransactionType type) {
+    return TransactionCategory(
+      id: type == TransactionType.income ? 11 : 10,
+      type: type,
+      name: 'Другое',
+      icon: Assets.images.transactions.other.path,
+      color: Colors.blueGrey[200]!,
+      createdAt: DateTime(2024),
+    );
+  }
 }

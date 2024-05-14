@@ -5,7 +5,6 @@ class ChangeTransactionParams extends Equatable {
   final int id;
   final int? categoryId;
   final TransactionType? type;
-  final String? name;
   final double? amount;
   final DateTime? transactionDate;
   final String? comment;
@@ -14,7 +13,6 @@ class ChangeTransactionParams extends Equatable {
     required this.id,
     this.categoryId,
     this.type,
-    this.name,
     this.amount,
     this.transactionDate,
     this.comment,
@@ -25,7 +23,6 @@ class ChangeTransactionParams extends Equatable {
         id,
         categoryId,
         type,
-        name,
         amount,
         transactionDate,
         comment,

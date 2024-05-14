@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:otlozhka/core/database/transations_db.dart';
 import 'package:otlozhka/core/injectable/injectable_init.dart';
 import 'package:otlozhka/routes/router.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  configureDependencies();
+  await getIt<TransactionsDatabase>().init();
   runApp(const MyApp());
 }
 

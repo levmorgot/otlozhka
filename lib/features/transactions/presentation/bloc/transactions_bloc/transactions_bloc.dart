@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:otlozhka/core/utils/app_logger.dart';
 import 'package:otlozhka/core/utils/failure_message.dart';
 import 'package:otlozhka/features/transactions/domain/entities/transaction_entity.dart';
 import 'package:otlozhka/features/transactions/domain/usecases/transactions/add_transaction.dart';
@@ -10,7 +11,7 @@ import 'package:otlozhka/features/transactions/domain/usecases/transactions/get_
 import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_event.dart';
 import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_state.dart';
 
-@Singleton()
+@Injectable()
 class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   final AddTransaction addTransaction;
   final ChangeTransaction changeTransaction;
@@ -28,24 +29,26 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
       final currentState = state;
       emit(TransactionsLoadingState());
       final failureOrTransaction = await addTransaction(event.params);
-
+      log(event.params);
       failureOrTransaction.fold(
           (failure) => emit(TransactionsErrorState(
                 message: mapFailureMessage(failure),
               )), (transaction) {
+        final incomeTransactions = <Transaction>[];
+        final expenseTransactions = <Transaction>[];
         if (currentState is TransactionsLoadedState) {
-          final incomeTransactions = currentState.incomeTransactions;
-          final expenseTransactions = currentState.expenseTransactions;
-          if (transaction.type == TransactionType.income) {
-            incomeTransactions.add(transaction);
-          } else {
-            expenseTransactions.add(transaction);
-          }
-          emit(TransactionsLoadedState(
-            incomeTransactions: incomeTransactions,
-            expenseTransactions: expenseTransactions,
-          ));
+          incomeTransactions.addAll(currentState.incomeTransactions);
+          expenseTransactions.addAll(currentState.expenseTransactions);
         }
+        if (transaction.type == TransactionType.income) {
+          incomeTransactions.add(transaction);
+        } else {
+          expenseTransactions.add(transaction);
+        }
+        emit(TransactionsLoadedState(
+          incomeTransactions: incomeTransactions,
+          expenseTransactions: expenseTransactions,
+        ));
       });
     });
     on<ChangeTransactionEvent>((event, emit) async {
@@ -77,7 +80,6 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
     });
     on<GetTransactionsEvent>((event, emit) async {
       if (state is TransactionsLoadingState) return;
-      final currentState = state;
       emit(TransactionsLoadingState());
       final failureOrTransactions = await getTransactions(const None());
 
@@ -85,14 +87,12 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
           (failure) => emit(TransactionsErrorState(
                 message: mapFailureMessage(failure),
               )), (transaction) {
-        if (currentState is TransactionsLoadedState) {
-          final incomeTransactions = transaction.where((transaction) => transaction.type == TransactionType.income).toList();
-          final expenseTransactions = transaction.where((transaction) => transaction.type == TransactionType.expense).toList();
-          emit(TransactionsLoadedState(
-            incomeTransactions: incomeTransactions,
-            expenseTransactions: expenseTransactions,
-          ));
-        }
+        final incomeTransactions = transaction.where((transaction) => transaction.type == TransactionType.income).toList();
+        final expenseTransactions = transaction.where((transaction) => transaction.type == TransactionType.expense).toList();
+        emit(TransactionsLoadedState(
+          incomeTransactions: incomeTransactions,
+          expenseTransactions: expenseTransactions,
+        ));
       });
     });
   }

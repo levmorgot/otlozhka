@@ -10,7 +10,7 @@ import 'package:otlozhka/features/transactions/domain/usecases/transactions_cate
 import 'package:otlozhka/features/transactions/presentation/bloc/transaction_categories_bloc/transaction_categories_event.dart';
 import 'package:otlozhka/features/transactions/presentation/bloc/transaction_categories_bloc/transaction_categories_state.dart';
 
-@Singleton()
+@Injectable()
 class TransactionCategoriesBloc extends Bloc<TransactionCategoriesEvent, TransactionCategoriesState> {
   final AddTransactionCategory addTransactionCategory;
   final ChangeTransactionCategory changeTransactionCategory;
@@ -77,7 +77,6 @@ class TransactionCategoriesBloc extends Bloc<TransactionCategoriesEvent, Transac
     });
     on<GetTransactionCategoriesEvent>((event, emit) async {
       if (state is TransactionCategoriesLoadingState) return;
-      final currentState = state;
       emit(TransactionCategoriesLoadingState());
       final failureOrTransactionCategories = await getTransactionCategories(const None());
 
@@ -85,14 +84,12 @@ class TransactionCategoriesBloc extends Bloc<TransactionCategoriesEvent, Transac
           (failure) => emit(TransactionCategoriesErrorState(
                 message: mapFailureMessage(failure),
               )), (transaction) {
-        if (currentState is TransactionCategoriesLoadedState) {
-          final incomeTransactionCategories = transaction.where((transaction) => transaction.type == TransactionType.income).toList();
-          final expenseTransactionCategories = transaction.where((transaction) => transaction.type == TransactionType.expense).toList();
-          emit(TransactionCategoriesLoadedState(
-            incomeTransactionCategories: incomeTransactionCategories,
-            expenseTransactionCategories: expenseTransactionCategories,
-          ));
-        }
+        final incomeTransactionCategories = transaction.where((transaction) => transaction.type == TransactionType.income).toList();
+        final expenseTransactionCategories = transaction.where((transaction) => transaction.type == TransactionType.expense).toList();
+        emit(TransactionCategoriesLoadedState(
+          incomeTransactionCategories: incomeTransactionCategories,
+          expenseTransactionCategories: expenseTransactionCategories,
+        ));
       });
     });
   }

@@ -7,7 +7,6 @@ class TransactionFields {
   static const String id = 'id';
   static const String categoryId = 'category_id';
   static const String type = 'type';
-  static const String name = 'name';
   static const String amount = 'amount';
   static const String transactionDate = 'transaction_date';
   static const String createdAt = 'created_at';
@@ -16,7 +15,6 @@ class TransactionFields {
   static List<String> get values => [
         id,
         categoryId,
-        name,
         amount,
         transactionDate,
         createdAt,
@@ -31,9 +29,8 @@ enum TransactionType {
 
 class Transaction extends Equatable {
   final int id;
-  final int categoryId;
-  final TransactionType? type;
-  final String name;
+  final int? categoryId;
+  final TransactionType type;
   final double amount;
   final DateTime transactionDate;
   final DateTime createdAt;
@@ -41,9 +38,8 @@ class Transaction extends Equatable {
 
   const Transaction({
     required this.id,
-    required this.categoryId,
-    this.type,
-    this.name = '',
+    this.categoryId,
+    required this.type,
     required this.amount,
     required this.transactionDate,
     required this.createdAt,
@@ -55,7 +51,6 @@ class Transaction extends Equatable {
         id,
         categoryId,
         type,
-        name,
         amount,
         transactionDate,
         createdAt,
@@ -67,7 +62,6 @@ class Transaction extends Equatable {
       id: json[TransactionFields.id],
       categoryId: json[TransactionFields.categoryId],
       type: EnumUtil.fromString(json[TransactionFields.type], TransactionType.values),
-      name: json[TransactionFields.name],
       amount: json[TransactionFields.amount],
       createdAt: DateTime.parse(json[TransactionFields.createdAt]),
       transactionDate: DateTime.parse(json[TransactionFields.transactionDate]),
@@ -79,8 +73,7 @@ class Transaction extends Equatable {
     return {
       TransactionFields.id: id,
       TransactionFields.categoryId: categoryId,
-      TransactionFields.type: type != null ? EnumUtil.toJson(type!) : null,
-      TransactionFields.name: name,
+      TransactionFields.type: EnumUtil.toJson(type),
       TransactionFields.amount: amount,
       TransactionFields.transactionDate: transactionDate.toIso8601String(),
       TransactionFields.createdAt: createdAt.toIso8601String(),
@@ -100,7 +93,6 @@ class Transaction extends Equatable {
         id: id,
         categoryId: categoryId ?? this.categoryId,
         type: type ?? this.type,
-        name: name ?? this.name,
         amount: amount ?? this.amount,
         transactionDate: transactionDate ?? this.transactionDate,
         createdAt: createdAt,

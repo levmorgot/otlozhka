@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'major/major_router.dart';
 import 'router.gr.dart';
 
+@Singleton()
 @AutoRouterConfig()
 class AppRouter extends $AppRouter {
   @override
