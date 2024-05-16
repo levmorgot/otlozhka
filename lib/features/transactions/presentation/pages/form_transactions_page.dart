@@ -6,18 +6,20 @@ import 'package:otlozhka/features/transactions/presentation/widgets/form_transac
 import 'package:provider/provider.dart';
 
 @RoutePage()
-class AddTransactionsPage extends StatefulWidget {
+class FormTransactionPage extends StatefulWidget {
   final TransactionType type;
+  final Transaction? transaction;
 
-  const AddTransactionsPage({super.key, required this.type});
+  const FormTransactionPage({super.key, required this.type, this.transaction});
 
   @override
-  State<AddTransactionsPage> createState() => _AddTransactionsPageState();
+  State<FormTransactionPage> createState() => _FormTransactionPagePageState();
 }
 
-class _AddTransactionsPageState extends State<AddTransactionsPage> with TickerProviderStateMixin {
+class _FormTransactionPagePageState extends State<FormTransactionPage> with TickerProviderStateMixin {
   int _selectedIndex = 0;
   late TabController tabController;
+
   @override
   void initState() {
     super.initState();
@@ -45,12 +47,13 @@ class _AddTransactionsPageState extends State<AddTransactionsPage> with TickerPr
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: 85,
-          leading: IconButton(onPressed: () {
-            AutoRouter.of(context).maybePop();
-          },
+          leading: IconButton(
+            onPressed: () {
+              AutoRouter.of(context).maybePop();
+            },
             icon: const Icon(Icons.arrow_back),
           ),
-          title: const Text('Добавление операции'),
+          title: Text(widget.transaction !=null ? 'Редактирование операции' :'Добавление операции'),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(20.0),
             child: Column(
@@ -89,7 +92,10 @@ class _AddTransactionsPageState extends State<AddTransactionsPage> with TickerPr
             ),
           ),
         ),
-        body: FormTransactionsWidget(type: _selectedIndex == 0 ? TransactionType.expense : TransactionType.income),
+        body: FormTransactionsWidget(
+          type: _selectedIndex == 0 ? TransactionType.expense : TransactionType.income,
+          transaction: widget.transaction,
+        ),
       ),
     );
   }

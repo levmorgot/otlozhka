@@ -12,12 +12,13 @@ import 'package:provider/provider.dart';
 
 class FormTransactionsWidget extends StatelessWidget {
   final TransactionType type;
+  final Transaction? transaction;
 
-  const FormTransactionsWidget({super.key, required this.type});
+  const FormTransactionsWidget({super.key, required this.type, this.transaction});
 
   @override
   Widget build(BuildContext context) {
-    final form = Provider.of<FormTransactionController>(context);
+    final form = Provider.of<FormTransactionController>(context)..init(type: type, transaction: transaction);
     return Form(
       child: SingleChildScrollView(
         child: Column(
@@ -27,6 +28,7 @@ class FormTransactionsWidget extends StatelessWidget {
               child: SizedBox(
                 width: 150,
                 child: TextFormField(
+                  controller: form.amountController,
                   keyboardType: TextInputType.number,
                   autofocus: true,
                   decoration: const InputDecoration(suffixText: 'Руб'),
@@ -113,9 +115,9 @@ class FormTransactionsWidget extends StatelessWidget {
             const Gap(20),
             TextButton(
                 onPressed: () {
-                  form.addTransaction(context, type);
+                  form.saveTransaction(context, type, transaction: transaction);
                 },
-                child: const Text('Добавить'))
+                child: Text(transaction != null ? 'Сохранить' : 'Добавить'))
           ],
         ),
       ),

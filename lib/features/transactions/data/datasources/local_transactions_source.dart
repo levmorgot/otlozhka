@@ -19,7 +19,7 @@ abstract class TransactionSource {
 
   Future<Either<Failure, List<Transaction>>> getTransactionsByCategoryId(int categoryId);
 
-  Future<Either<Failure, None>> deleteTransaction(int id);
+  Future<Either<Failure, Transaction>> deleteTransaction(int id);
 }
 
 @Injectable(as: TransactionSource)
@@ -39,7 +39,7 @@ class LocalTransactionSource implements TransactionSource {
   }
 
   @override
-  Future<Either<Failure, None>> deleteTransaction(int params) {
+  Future<Either<Failure, Transaction>> deleteTransaction(int params) {
     return _database.deleteTransaction(params);
   }
 

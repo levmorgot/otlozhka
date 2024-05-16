@@ -17,5 +17,5 @@ abstract class ITransactionRepository {
 
   Future<Either<Failure, List<Transaction>>> getTransactionsByCategoryId(int categoryId);
 
-  Future<Either<Failure, None>> deleteTransaction(int id);
+  Future<Either<Failure, Transaction>> deleteTransaction(int id);
 }

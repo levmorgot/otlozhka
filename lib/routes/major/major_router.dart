@@ -9,6 +9,5 @@ final majorRouter = AutoRoute(
   initial: true,
   children: [
     mainRouter,
-    formTransactionRouter,
   ],
 );

@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:otlozhka/core/utils/app_logger.dart';
 import 'package:otlozhka/core/utils/failure_message.dart';
 import 'package:otlozhka/features/transactions/domain/entities/transaction_category_entity.dart';
 import 'package:otlozhka/features/transactions/domain/entities/transaction_entity.dart';
@@ -11,7 +12,7 @@ import 'package:otlozhka/features/transactions/domain/usecases/transactions_cate
 import 'package:otlozhka/features/transactions/presentation/bloc/transaction_categories_bloc/transaction_categories_event.dart';
 import 'package:otlozhka/features/transactions/presentation/bloc/transaction_categories_bloc/transaction_categories_state.dart';
 
-@Injectable()
+@LazySingleton()
 class TransactionCategoriesBloc extends Bloc<TransactionCategoriesEvent, TransactionCategoriesState> {
   final AddTransactionCategory addTransactionCategory;
   final ChangeTransactionCategory changeTransactionCategory;
@@ -40,15 +41,15 @@ class TransactionCategoriesBloc extends Bloc<TransactionCategoriesEvent, Transac
           incomeTransactionCategories.addAll(currentState.incomeTransactionCategories);
           expenseTransactionCategories.addAll(currentState.expenseTransactionCategories);
         }
-          if (category.type == TransactionType.income) {
-            incomeTransactionCategories.add(category);
-          } else {
-            expenseTransactionCategories.add(category);
-          }
-          emit(TransactionCategoriesLoadedState(
-            incomeTransactionCategories: incomeTransactionCategories,
-            expenseTransactionCategories: expenseTransactionCategories,
-          ));
+        if (category.type == TransactionType.income) {
+          incomeTransactionCategories.add(category);
+        } else {
+          expenseTransactionCategories.add(category);
+        }
+        emit(TransactionCategoriesLoadedState(
+          incomeTransactionCategories: incomeTransactionCategories,
+          expenseTransactionCategories: expenseTransactionCategories,
+        ));
       });
     });
     on<ChangeTransactionCategoryEvent>((event, emit) async {
@@ -67,17 +68,20 @@ class TransactionCategoriesBloc extends Bloc<TransactionCategoriesEvent, Transac
           incomeTransactionCategories.addAll(currentState.incomeTransactionCategories);
           expenseTransactionCategories.addAll(currentState.expenseTransactionCategories);
         }
-          if (category.type == TransactionType.income) {
-            final index = incomeTransactionCategories.indexOf(incomeTransactionCategories.firstWhere((element) => element.id == category.id));
-            incomeTransactionCategories[index] = category;
-          } else {
-            final index = expenseTransactionCategories.indexOf(incomeTransactionCategories.firstWhere((element) => element.id == category.id));
-            expenseTransactionCategories[index] = category;
-          }
-          emit(TransactionCategoriesLoadedState(
-            incomeTransactionCategories: incomeTransactionCategories,
-            expenseTransactionCategories: expenseTransactionCategories,
-          ));
+        log(incomeTransactionCategories);
+        log(expenseTransactionCategories);
+        if (category.type == TransactionType.income) {
+
+          final index = incomeTransactionCategories.indexOf(incomeTransactionCategories.firstWhere((element) => element.id == category.id));
+          incomeTransactionCategories[index] = category;
+        } else {
+          final index = expenseTransactionCategories.indexOf(expenseTransactionCategories.firstWhere((element) => element.id == category.id));
+          expenseTransactionCategories[index] = category;
+        }
+        emit(TransactionCategoriesLoadedState(
+          incomeTransactionCategories: incomeTransactionCategories,
+          expenseTransactionCategories: expenseTransactionCategories,
+        ));
       });
     });
     on<GetTransactionCategoriesEvent>((event, emit) async {

@@ -36,6 +36,15 @@ class GetTransactionEvent extends TransactionsEvent {
   List<Object> get props => [id];
 }
 
+class DeleteTransactionEvent extends TransactionsEvent {
+  final int id;
+
+  const DeleteTransactionEvent({required this.id});
+
+  @override
+  List<Object> get props => [id];
+}
+
 class GetTransactionsEvent extends TransactionsEvent {
   const GetTransactionsEvent();
 }

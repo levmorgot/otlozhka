@@ -5,6 +5,6 @@ import '../router.gr.dart';
 final formTransactionRouter = AutoRoute(
   page: FormTransactionWrapper.page,
   children: [
-    AutoRoute(page: AddTransactionsRoute.page, initial: true),
+    AutoRoute(page: FormTransactionRoute.page, initial: true),
   ],
 );

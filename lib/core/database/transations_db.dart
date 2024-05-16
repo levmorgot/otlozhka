@@ -158,15 +158,16 @@ class TransactionsDatabase {
     }
   }
 
-  Future<Either<Failure, None>> deleteTransaction(int id) async {
+  Future<Either<Failure, tr.Transaction>> deleteTransaction(int id) async {
     try {
       final database = await this.database;
+      final deletedTransaction = await getTransaction(id);
       await database.delete(
         tr.tableTransactions,
         where: '${tr.TransactionFields.id} = ?',
         whereArgs: [id],
       );
-      return const Right(None());
+      return deletedTransaction.fold((failure) => Left(failure), (transaction) => Right(transaction));
     } catch (e) {
       return Left(DatabaseFailure(
         errorMessage: e.toString(),
@@ -233,6 +234,7 @@ class TransactionsDatabase {
               name: params.name,
               icon: params.icon,
               color: params.color,
+              maxMonthAmount: params.maxMonthAmount,
             )
             .toJson(),
         where: '${TransactionCategoryFields.id} = ?',

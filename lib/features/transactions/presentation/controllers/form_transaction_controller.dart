@@ -2,12 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:otlozhka/core/injectable/injectable_init.dart';
 import 'package:otlozhka/core/utils/app_logger.dart';
 import 'package:otlozhka/features/transactions/domain/entities/transaction_entity.dart';
 import 'package:otlozhka/features/transactions/domain/usecases/params/add_transaction_params.dart';
+import 'package:otlozhka/features/transactions/domain/usecases/params/change_transaction_params.dart';
 import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_bloc.dart';
 import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_event.dart';
-import 'package:otlozhka/routes/router.gr.dart';
 
 @Injectable()
 class FormTransactionController extends ChangeNotifier {
@@ -16,13 +17,16 @@ class FormTransactionController extends ChangeNotifier {
   int? _selectedCategoryId;
   final now = DateTime.now();
   DateTime _transactionDate = DateTime.now();
+  bool isInitial = false;
 
   init({Transaction? transaction, required TransactionType type}) {
-    _amountController.text = transaction?.amount.toString() ?? '';
-    _commentController.text = transaction?.comment ?? '';
-    _selectedCategoryId = transaction?.categoryId;
-    _transactionDate = transaction?.transactionDate ?? now;
-    notifyListeners();
+    if (!isInitial) {
+      isInitial = true;
+      _amountController.text = transaction?.amount.toString() ?? '';
+      _commentController.text = transaction?.comment ?? '';
+      _selectedCategoryId = transaction?.categoryId;
+      _transactionDate = transaction?.transactionDate ?? now;
+    }
   }
 
   TextEditingController get amountController => _amountController;
@@ -54,20 +58,38 @@ class FormTransactionController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addTransaction(BuildContext context, TransactionType type) {
+  void saveTransaction(BuildContext context, TransactionType type, {Transaction? transaction}) {
     if (_selectedCategoryId != null && _amountController.text.isNotEmpty && (double.tryParse(_amountController.text) ?? 0) > 0) {
-      BlocProvider.of<TransactionsBloc>(context).add(
-        AddTransactionEvent(
-          params: AddTransactionParams(
-            categoryId: _selectedCategoryId!,
-            type: type,
-            amount: double.tryParse(_amountController.text) ?? 0,
-            transactionDate: _transactionDate,
-            comment: _commentController.text,
+      final bloc = getIt<TransactionsBloc>();
+      log(bloc.state);
+
+      if (transaction != null) {
+        bloc.add(
+          ChangeTransactionEvent(
+            params: ChangeTransactionParams(
+              id: transaction.id,
+              categoryId: _selectedCategoryId!,
+              type: transaction.type != type ? type : null,
+              amount: double.tryParse(_amountController.text) ?? 0,
+              transactionDate: _transactionDate,
+              comment: _commentController.text,
+            ),
           ),
-        ),
-      );
-      AutoRouter.of(context).maybePop(const TransactionsRoute());
+        );
+      } else {
+        bloc.add(
+          AddTransactionEvent(
+            params: AddTransactionParams(
+              categoryId: _selectedCategoryId!,
+              type: type,
+              amount: double.tryParse(_amountController.text) ?? 0,
+              transactionDate: _transactionDate,
+              comment: _commentController.text,
+            ),
+          ),
+        );
+      }
+      AutoRouter.of(context).maybePop();
     }
   }
 }

@@ -8,6 +8,5 @@ final transactionCategoriesRouter = AutoRoute(
   children: [
     AutoRoute(page: TransactionCategoriesRoute.page, initial: true),
     AutoRoute(page: TransactionCategoryRoute.page),
-    formTransactionRouter,
   ],
 );

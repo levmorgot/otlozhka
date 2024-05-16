@@ -14,7 +14,7 @@ import 'package:otlozhka/features/transactions/domain/entities/transaction_categ
     as _i14;
 import 'package:otlozhka/features/transactions/domain/entities/transaction_entity.dart'
     as _i13;
-import 'package:otlozhka/features/transactions/presentation/pages/add_transactions_page.dart'
+import 'package:otlozhka/features/transactions/presentation/pages/form_transactions_page.dart'
     as _i1;
 import 'package:otlozhka/features/transactions/presentation/pages/transaction_categories_page.dart'
     as _i5;
@@ -37,13 +37,14 @@ abstract class $AppRouter extends _i11.RootStackRouter {
 
   @override
   final Map<String, _i11.PageFactory> pagesMap = {
-    AddTransactionsRoute.name: (routeData) {
-      final args = routeData.argsAs<AddTransactionsRouteArgs>();
+    FormTransactionRoute.name: (routeData) {
+      final args = routeData.argsAs<FormTransactionRouteArgs>();
       return _i11.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i1.AddTransactionsPage(
+        child: _i1.FormTransactionPage(
           key: args.key,
           type: args.type,
+          transaction: args.transaction,
         ),
       );
     },
@@ -115,41 +116,46 @@ abstract class $AppRouter extends _i11.RootStackRouter {
 }
 
 /// generated route for
-/// [_i1.AddTransactionsPage]
-class AddTransactionsRoute
-    extends _i11.PageRouteInfo<AddTransactionsRouteArgs> {
-  AddTransactionsRoute({
+/// [_i1.FormTransactionPage]
+class FormTransactionRoute
+    extends _i11.PageRouteInfo<FormTransactionRouteArgs> {
+  FormTransactionRoute({
     _i12.Key? key,
     required _i13.TransactionType type,
+    _i13.Transaction? transaction,
     List<_i11.PageRouteInfo>? children,
   }) : super(
-          AddTransactionsRoute.name,
-          args: AddTransactionsRouteArgs(
+          FormTransactionRoute.name,
+          args: FormTransactionRouteArgs(
             key: key,
             type: type,
+            transaction: transaction,
           ),
           initialChildren: children,
         );
 
-  static const String name = 'AddTransactionsRoute';
+  static const String name = 'FormTransactionRoute';
 
-  static const _i11.PageInfo<AddTransactionsRouteArgs> page =
-      _i11.PageInfo<AddTransactionsRouteArgs>(name);
+  static const _i11.PageInfo<FormTransactionRouteArgs> page =
+      _i11.PageInfo<FormTransactionRouteArgs>(name);
 }
 
-class AddTransactionsRouteArgs {
-  const AddTransactionsRouteArgs({
+class FormTransactionRouteArgs {
+  const FormTransactionRouteArgs({
     this.key,
     required this.type,
+    this.transaction,
   });
 
   final _i12.Key? key;
 
   final _i13.TransactionType type;
 
+  final _i13.Transaction? transaction;
+
   @override
   String toString() {
-    return 'AddTransactionsRouteArgs{key: $key, type: $type}';
+    return 'FormTransactionRouteArgs{key: $key, type: $type, transaction: $transaction}';
   }
 }
 

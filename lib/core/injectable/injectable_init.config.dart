@@ -110,17 +110,17 @@ extension GetItInjectableX on _i1.GetIt {
         _i23.GetTransactionCategory(gh<_i8.ITransactionCategoryRepository>()));
     gh.factory<_i24.GetTransactions>(
         () => _i24.GetTransactions(gh<_i10.ITransactionRepository>()));
-    gh.factory<_i25.TransactionCategoriesBloc>(
+    gh.lazySingleton<_i25.TransactionCategoriesBloc>(
         () => _i25.TransactionCategoriesBloc(
               addTransactionCategory: gh<_i13.AddTransactionCategory>(),
               changeTransactionCategory: gh<_i15.ChangeTransactionCategory>(),
               getTransactionCategory: gh<_i23.GetTransactionCategory>(),
               getTransactionCategories: gh<_i21.GetTransactionCategories>(),
             ));
-    gh.factory<_i26.TransactionsBloc>(() => _i26.TransactionsBloc(
+    gh.lazySingleton<_i26.TransactionsBloc>(() => _i26.TransactionsBloc(
           addTransaction: gh<_i12.AddTransaction>(),
           changeTransaction: gh<_i14.ChangeTransaction>(),
-          getTransaction: gh<_i18.GetTransaction>(),
+          deleteTransaction: gh<_i16.DeleteTransaction>(),
           getTransactions: gh<_i24.GetTransactions>(),
         ));
     return this;

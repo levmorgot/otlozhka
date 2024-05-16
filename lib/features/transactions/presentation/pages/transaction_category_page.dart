@@ -6,13 +6,7 @@ import 'package:otlozhka/features/transactions/domain/entities/transaction_entit
 import 'package:otlozhka/features/transactions/domain/usecases/params/change_transaction_category_params.dart';
 import 'package:otlozhka/features/transactions/presentation/bloc/transaction_categories_bloc/transaction_categories_bloc.dart';
 import 'package:otlozhka/features/transactions/presentation/bloc/transaction_categories_bloc/transaction_categories_event.dart';
-import 'package:otlozhka/features/transactions/presentation/bloc/transaction_categories_bloc/transaction_categories_state.dart';
-import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_bloc.dart';
-import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_state.dart';
 import 'package:otlozhka/features/transactions/presentation/widgets/category_icon.dart';
-import 'package:otlozhka/features/transactions/presentation/widgets/transaction_categories_widget.dart';
-import 'package:otlozhka/features/transactions/presentation/widgets/transactions_widget.dart';
-import 'package:otlozhka/routes/router.gr.dart';
 
 @RoutePage()
 class TransactionCategoryPage extends StatelessWidget {
@@ -31,7 +25,7 @@ class TransactionCategoryPage extends StatelessWidget {
         ),
         body: Column(children: [
           CategoryIcon(category: category, radius: 50),
-          Text('Тип'),
+          const Text('Тип'),
           Text(category.type == TransactionType.income ? 'Доходы' : 'Расходы'),
           TextField(controller: maxMonthAmountController,),
 
@@ -45,7 +39,7 @@ class TransactionCategoryPage extends StatelessWidget {
                         maxMonthAmountController.text,
                       ))));
             },
-            child: Text('Подтвердить'),
+            child: const Text('Подтвердить'),
           ),
         ],)
       ),

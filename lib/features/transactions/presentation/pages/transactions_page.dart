@@ -86,7 +86,7 @@ class _TransactionsPageState extends State<TransactionsPage> with TickerProvider
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             AutoRouter.of(context).push(
-              AddTransactionsRoute(
+              FormTransactionRoute(
                 type: _selectedIndex == 0 ? TransactionType.expense : TransactionType.income,
               ),
             );

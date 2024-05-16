@@ -23,7 +23,7 @@ class TransactionRepository implements ITransactionRepository {
   }
 
   @override
-  Future<Either<Failure, None>> deleteTransaction(int params) {
+  Future<Either<Failure, Transaction>> deleteTransaction(int params) {
     return _source.deleteTransaction(params);
   }
 
