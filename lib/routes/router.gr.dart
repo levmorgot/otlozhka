@@ -8,38 +8,39 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i11;
-import 'package:flutter/material.dart' as _i12;
+import 'package:auto_route/auto_route.dart' as _i12;
+import 'package:flutter/material.dart' as _i13;
 import 'package:otlozhka/features/transactions/domain/entities/transaction_category_entity.dart'
-    as _i14;
+    as _i15;
 import 'package:otlozhka/features/transactions/domain/entities/transaction_entity.dart'
-    as _i13;
+    as _i14;
 import 'package:otlozhka/features/transactions/presentation/pages/form_transactions_page.dart'
     as _i1;
 import 'package:otlozhka/features/transactions/presentation/pages/transaction_categories_page.dart'
-    as _i5;
+    as _i6;
 import 'package:otlozhka/features/transactions/presentation/pages/transaction_category_page.dart'
-    as _i7;
-import 'package:otlozhka/features/transactions/presentation/pages/transaction_page.dart'
     as _i8;
-import 'package:otlozhka/features/transactions/presentation/pages/transactions_page.dart'
+import 'package:otlozhka/features/transactions/presentation/pages/transaction_page.dart'
     as _i9;
+import 'package:otlozhka/features/transactions/presentation/pages/transactions_page.dart'
+    as _i10;
 import 'package:otlozhka/routes/form_transaction/form_transaction_wrapper.dart'
     as _i2;
 import 'package:otlozhka/routes/main/main_wrapper.dart' as _i3;
-import 'package:otlozhka/routes/major/major_wrapper.dart' as _i4;
+import 'package:otlozhka/routes/major/major.dart' as _i4;
+import 'package:otlozhka/routes/major/major_wrapper.dart' as _i5;
 import 'package:otlozhka/routes/transaction_categories/transaction_categories_wrapper.dart'
-    as _i6;
-import 'package:otlozhka/routes/transactions/transactions_wrapper.dart' as _i10;
+    as _i7;
+import 'package:otlozhka/routes/transactions/transactions_wrapper.dart' as _i11;
 
-abstract class $AppRouter extends _i11.RootStackRouter {
+abstract class $AppRouter extends _i12.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i11.PageFactory> pagesMap = {
+  final Map<String, _i12.PageFactory> pagesMap = {
     FormTransactionRoute.name: (routeData) {
       final args = routeData.argsAs<FormTransactionRouteArgs>();
-      return _i11.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i1.FormTransactionPage(
           key: args.key,
@@ -49,41 +50,47 @@ abstract class $AppRouter extends _i11.RootStackRouter {
       );
     },
     FormTransactionWrapper.name: (routeData) {
-      return _i11.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i11.WrappedRoute(child: const _i2.FormTransactionWrapper()),
+        child: _i12.WrappedRoute(child: const _i2.FormTransactionWrapper()),
       );
     },
     MainWrapperRoute.name: (routeData) {
-      return _i11.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i3.MainWrapperPage(),
       );
     },
-    MajorWrapper.name: (routeData) {
-      return _i11.AutoRoutePage<dynamic>(
+    MajorRoute.name: (routeData) {
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i11.WrappedRoute(child: const _i4.MajorWrapper()),
+        child: const _i4.MajorPage(),
+      );
+    },
+    MajorWrapper.name: (routeData) {
+      return _i12.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i12.WrappedRoute(child: const _i5.MajorWrapper()),
       );
     },
     TransactionCategoriesRoute.name: (routeData) {
-      return _i11.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i5.TransactionCategoriesPage(),
+        child: const _i6.TransactionCategoriesPage(),
       );
     },
     TransactionCategoriesWrapper.name: (routeData) {
-      return _i11.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
         child:
-            _i11.WrappedRoute(child: const _i6.TransactionCategoriesWrapper()),
+            _i12.WrappedRoute(child: const _i7.TransactionCategoriesWrapper()),
       );
     },
     TransactionCategoryRoute.name: (routeData) {
       final args = routeData.argsAs<TransactionCategoryRouteArgs>();
-      return _i11.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i7.TransactionCategoryPage(
+        child: _i8.TransactionCategoryPage(
           key: args.key,
           category: args.category,
         ),
@@ -91,9 +98,9 @@ abstract class $AppRouter extends _i11.RootStackRouter {
     },
     TransactionRoute.name: (routeData) {
       final args = routeData.argsAs<TransactionRouteArgs>();
-      return _i11.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i8.TransactionPage(
+        child: _i9.TransactionPage(
           key: args.key,
           transaction: args.transaction,
           category: args.category,
@@ -101,15 +108,15 @@ abstract class $AppRouter extends _i11.RootStackRouter {
       );
     },
     TransactionsRoute.name: (routeData) {
-      return _i11.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i9.TransactionsPage(),
+        child: const _i10.TransactionsPage(),
       );
     },
     TransactionsWrapper.name: (routeData) {
-      return _i11.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i11.WrappedRoute(child: const _i10.TransactionsWrapper()),
+        child: _i12.WrappedRoute(child: const _i11.TransactionsWrapper()),
       );
     },
   };
@@ -118,12 +125,12 @@ abstract class $AppRouter extends _i11.RootStackRouter {
 /// generated route for
 /// [_i1.FormTransactionPage]
 class FormTransactionRoute
-    extends _i11.PageRouteInfo<FormTransactionRouteArgs> {
+    extends _i12.PageRouteInfo<FormTransactionRouteArgs> {
   FormTransactionRoute({
-    _i12.Key? key,
-    required _i13.TransactionType type,
-    _i13.Transaction? transaction,
-    List<_i11.PageRouteInfo>? children,
+    _i13.Key? key,
+    required _i14.TransactionType type,
+    _i14.Transaction? transaction,
+    List<_i12.PageRouteInfo>? children,
   }) : super(
           FormTransactionRoute.name,
           args: FormTransactionRouteArgs(
@@ -136,8 +143,8 @@ class FormTransactionRoute
 
   static const String name = 'FormTransactionRoute';
 
-  static const _i11.PageInfo<FormTransactionRouteArgs> page =
-      _i11.PageInfo<FormTransactionRouteArgs>(name);
+  static const _i12.PageInfo<FormTransactionRouteArgs> page =
+      _i12.PageInfo<FormTransactionRouteArgs>(name);
 }
 
 class FormTransactionRouteArgs {
@@ -147,11 +154,11 @@ class FormTransactionRouteArgs {
     this.transaction,
   });
 
-  final _i12.Key? key;
+  final _i13.Key? key;
 
-  final _i13.TransactionType type;
+  final _i14.TransactionType type;
 
-  final _i13.Transaction? transaction;
+  final _i14.Transaction? transaction;
 
   @override
   String toString() {
@@ -161,8 +168,8 @@ class FormTransactionRouteArgs {
 
 /// generated route for
 /// [_i2.FormTransactionWrapper]
-class FormTransactionWrapper extends _i11.PageRouteInfo<void> {
-  const FormTransactionWrapper({List<_i11.PageRouteInfo>? children})
+class FormTransactionWrapper extends _i12.PageRouteInfo<void> {
+  const FormTransactionWrapper({List<_i12.PageRouteInfo>? children})
       : super(
           FormTransactionWrapper.name,
           initialChildren: children,
@@ -170,13 +177,13 @@ class FormTransactionWrapper extends _i11.PageRouteInfo<void> {
 
   static const String name = 'FormTransactionWrapper';
 
-  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i3.MainWrapperPage]
-class MainWrapperRoute extends _i11.PageRouteInfo<void> {
-  const MainWrapperRoute({List<_i11.PageRouteInfo>? children})
+class MainWrapperRoute extends _i12.PageRouteInfo<void> {
+  const MainWrapperRoute({List<_i12.PageRouteInfo>? children})
       : super(
           MainWrapperRoute.name,
           initialChildren: children,
@@ -184,13 +191,27 @@ class MainWrapperRoute extends _i11.PageRouteInfo<void> {
 
   static const String name = 'MainWrapperRoute';
 
-  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i4.MajorWrapper]
-class MajorWrapper extends _i11.PageRouteInfo<void> {
-  const MajorWrapper({List<_i11.PageRouteInfo>? children})
+/// [_i4.MajorPage]
+class MajorRoute extends _i12.PageRouteInfo<void> {
+  const MajorRoute({List<_i12.PageRouteInfo>? children})
+      : super(
+          MajorRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'MajorRoute';
+
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i5.MajorWrapper]
+class MajorWrapper extends _i12.PageRouteInfo<void> {
+  const MajorWrapper({List<_i12.PageRouteInfo>? children})
       : super(
           MajorWrapper.name,
           initialChildren: children,
@@ -198,13 +219,13 @@ class MajorWrapper extends _i11.PageRouteInfo<void> {
 
   static const String name = 'MajorWrapper';
 
-  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i5.TransactionCategoriesPage]
-class TransactionCategoriesRoute extends _i11.PageRouteInfo<void> {
-  const TransactionCategoriesRoute({List<_i11.PageRouteInfo>? children})
+/// [_i6.TransactionCategoriesPage]
+class TransactionCategoriesRoute extends _i12.PageRouteInfo<void> {
+  const TransactionCategoriesRoute({List<_i12.PageRouteInfo>? children})
       : super(
           TransactionCategoriesRoute.name,
           initialChildren: children,
@@ -212,13 +233,13 @@ class TransactionCategoriesRoute extends _i11.PageRouteInfo<void> {
 
   static const String name = 'TransactionCategoriesRoute';
 
-  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i6.TransactionCategoriesWrapper]
-class TransactionCategoriesWrapper extends _i11.PageRouteInfo<void> {
-  const TransactionCategoriesWrapper({List<_i11.PageRouteInfo>? children})
+/// [_i7.TransactionCategoriesWrapper]
+class TransactionCategoriesWrapper extends _i12.PageRouteInfo<void> {
+  const TransactionCategoriesWrapper({List<_i12.PageRouteInfo>? children})
       : super(
           TransactionCategoriesWrapper.name,
           initialChildren: children,
@@ -226,17 +247,17 @@ class TransactionCategoriesWrapper extends _i11.PageRouteInfo<void> {
 
   static const String name = 'TransactionCategoriesWrapper';
 
-  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i7.TransactionCategoryPage]
+/// [_i8.TransactionCategoryPage]
 class TransactionCategoryRoute
-    extends _i11.PageRouteInfo<TransactionCategoryRouteArgs> {
+    extends _i12.PageRouteInfo<TransactionCategoryRouteArgs> {
   TransactionCategoryRoute({
-    _i12.Key? key,
-    required _i14.TransactionCategory category,
-    List<_i11.PageRouteInfo>? children,
+    _i13.Key? key,
+    required _i15.TransactionCategory category,
+    List<_i12.PageRouteInfo>? children,
   }) : super(
           TransactionCategoryRoute.name,
           args: TransactionCategoryRouteArgs(
@@ -248,8 +269,8 @@ class TransactionCategoryRoute
 
   static const String name = 'TransactionCategoryRoute';
 
-  static const _i11.PageInfo<TransactionCategoryRouteArgs> page =
-      _i11.PageInfo<TransactionCategoryRouteArgs>(name);
+  static const _i12.PageInfo<TransactionCategoryRouteArgs> page =
+      _i12.PageInfo<TransactionCategoryRouteArgs>(name);
 }
 
 class TransactionCategoryRouteArgs {
@@ -258,9 +279,9 @@ class TransactionCategoryRouteArgs {
     required this.category,
   });
 
-  final _i12.Key? key;
+  final _i13.Key? key;
 
-  final _i14.TransactionCategory category;
+  final _i15.TransactionCategory category;
 
   @override
   String toString() {
@@ -269,13 +290,13 @@ class TransactionCategoryRouteArgs {
 }
 
 /// generated route for
-/// [_i8.TransactionPage]
-class TransactionRoute extends _i11.PageRouteInfo<TransactionRouteArgs> {
+/// [_i9.TransactionPage]
+class TransactionRoute extends _i12.PageRouteInfo<TransactionRouteArgs> {
   TransactionRoute({
-    _i12.Key? key,
-    required _i13.Transaction transaction,
-    required _i14.TransactionCategory category,
-    List<_i11.PageRouteInfo>? children,
+    _i13.Key? key,
+    required _i14.Transaction transaction,
+    required _i15.TransactionCategory category,
+    List<_i12.PageRouteInfo>? children,
   }) : super(
           TransactionRoute.name,
           args: TransactionRouteArgs(
@@ -288,8 +309,8 @@ class TransactionRoute extends _i11.PageRouteInfo<TransactionRouteArgs> {
 
   static const String name = 'TransactionRoute';
 
-  static const _i11.PageInfo<TransactionRouteArgs> page =
-      _i11.PageInfo<TransactionRouteArgs>(name);
+  static const _i12.PageInfo<TransactionRouteArgs> page =
+      _i12.PageInfo<TransactionRouteArgs>(name);
 }
 
 class TransactionRouteArgs {
@@ -299,11 +320,11 @@ class TransactionRouteArgs {
     required this.category,
   });
 
-  final _i12.Key? key;
+  final _i13.Key? key;
 
-  final _i13.Transaction transaction;
+  final _i14.Transaction transaction;
 
-  final _i14.TransactionCategory category;
+  final _i15.TransactionCategory category;
 
   @override
   String toString() {
@@ -312,9 +333,9 @@ class TransactionRouteArgs {
 }
 
 /// generated route for
-/// [_i9.TransactionsPage]
-class TransactionsRoute extends _i11.PageRouteInfo<void> {
-  const TransactionsRoute({List<_i11.PageRouteInfo>? children})
+/// [_i10.TransactionsPage]
+class TransactionsRoute extends _i12.PageRouteInfo<void> {
+  const TransactionsRoute({List<_i12.PageRouteInfo>? children})
       : super(
           TransactionsRoute.name,
           initialChildren: children,
@@ -322,13 +343,13 @@ class TransactionsRoute extends _i11.PageRouteInfo<void> {
 
   static const String name = 'TransactionsRoute';
 
-  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i10.TransactionsWrapper]
-class TransactionsWrapper extends _i11.PageRouteInfo<void> {
-  const TransactionsWrapper({List<_i11.PageRouteInfo>? children})
+/// [_i11.TransactionsWrapper]
+class TransactionsWrapper extends _i12.PageRouteInfo<void> {
+  const TransactionsWrapper({List<_i12.PageRouteInfo>? children})
       : super(
           TransactionsWrapper.name,
           initialChildren: children,
@@ -336,5 +357,5 @@ class TransactionsWrapper extends _i11.PageRouteInfo<void> {
 
   static const String name = 'TransactionsWrapper';
 
-  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
 }

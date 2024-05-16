@@ -11,7 +11,7 @@ import 'package:otlozhka/features/transactions/domain/usecases/transactions/get_
 import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_event.dart';
 import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_state.dart';
 
-@LazySingleton()
+@Injectable()
 class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   final AddTransaction addTransaction;
   final ChangeTransaction changeTransaction;

@@ -6,10 +6,10 @@ import 'package:otlozhka/features/transactions/presentation/bloc/transaction_cat
 import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_bloc.dart';
 import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 @RoutePage()
 class MajorWrapper extends StatelessWidget implements AutoRouteWrapper {
   const MajorWrapper({super.key});
-
 
   @override
   Widget build(BuildContext context) {

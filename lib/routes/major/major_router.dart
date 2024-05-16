@@ -7,6 +7,7 @@ final majorRouter = AutoRoute(
   page: MajorWrapper.page,
   initial: true,
   children: [
+    AutoRoute(page: MajorRoute.page, initial: true),
     mainRouter,
   ],
 );

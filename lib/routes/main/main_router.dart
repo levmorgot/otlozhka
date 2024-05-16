@@ -6,7 +6,6 @@ import '../router.gr.dart';
 
 final mainRouter = AutoRoute(
   page: MainWrapperRoute.page,
-  initial: true,
   children: [
     transactionsRouter,
     transactionCategoriesRouter,

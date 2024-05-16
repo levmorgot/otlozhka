@@ -26,6 +26,8 @@ class TransactionPage extends StatelessWidget {
           ),
           body: Column(
             children: [
+              const Text('Сумма'),
+              Text('${transaction.amount} Р'),
               const Text('Тип'),
               Text(category.type == TransactionType.income ? 'Доходы' : 'Расходы'),
               const Text('Категория'),
