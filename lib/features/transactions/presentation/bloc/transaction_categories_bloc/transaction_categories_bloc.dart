@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:otlozhka/core/utils/failure_message.dart';
+import 'package:otlozhka/features/transactions/domain/entities/transaction_category_entity.dart';
 import 'package:otlozhka/features/transactions/domain/entities/transaction_entity.dart';
 import 'package:otlozhka/features/transactions/domain/usecases/transactions_category/add_transaction_category.dart';
 import 'package:otlozhka/features/transactions/domain/usecases/transactions_category/change_transaction_category.dart';
@@ -32,20 +33,22 @@ class TransactionCategoriesBloc extends Bloc<TransactionCategoriesEvent, Transac
       failureOrTransaction.fold(
           (failure) => emit(TransactionCategoriesErrorState(
                 message: mapFailureMessage(failure),
-              )), (transaction) {
+              )), (category) {
+        final incomeTransactionCategories = <TransactionCategory>[];
+        final expenseTransactionCategories = <TransactionCategory>[];
         if (currentState is TransactionCategoriesLoadedState) {
-          final incomeTransactionCategories = currentState.incomeTransactionCategories;
-          final expenseTransactionCategories = currentState.expenseTransactionCategories;
-          if (transaction.type == TransactionType.income) {
-            incomeTransactionCategories.add(transaction);
+          incomeTransactionCategories.addAll(currentState.incomeTransactionCategories);
+          expenseTransactionCategories.addAll(currentState.expenseTransactionCategories);
+        }
+          if (category.type == TransactionType.income) {
+            incomeTransactionCategories.add(category);
           } else {
-            expenseTransactionCategories.add(transaction);
+            expenseTransactionCategories.add(category);
           }
           emit(TransactionCategoriesLoadedState(
             incomeTransactionCategories: incomeTransactionCategories,
             expenseTransactionCategories: expenseTransactionCategories,
           ));
-        }
       });
     });
     on<ChangeTransactionCategoryEvent>((event, emit) async {
@@ -57,22 +60,24 @@ class TransactionCategoriesBloc extends Bloc<TransactionCategoriesEvent, Transac
       failureOrTransaction.fold(
           (failure) => emit(TransactionCategoriesErrorState(
                 message: mapFailureMessage(failure),
-              )), (transaction) {
+              )), (category) {
+        final incomeTransactionCategories = <TransactionCategory>[];
+        final expenseTransactionCategories = <TransactionCategory>[];
         if (currentState is TransactionCategoriesLoadedState) {
-          final incomeTransactionCategories = currentState.incomeTransactionCategories;
-          final expenseTransactionCategories = currentState.expenseTransactionCategories;
-          if (transaction.type == TransactionType.income) {
-            final index = incomeTransactionCategories.indexOf(incomeTransactionCategories.firstWhere((element) => element.id == transaction.id));
-            incomeTransactionCategories[index] = transaction;
+          incomeTransactionCategories.addAll(currentState.incomeTransactionCategories);
+          expenseTransactionCategories.addAll(currentState.expenseTransactionCategories);
+        }
+          if (category.type == TransactionType.income) {
+            final index = incomeTransactionCategories.indexOf(incomeTransactionCategories.firstWhere((element) => element.id == category.id));
+            incomeTransactionCategories[index] = category;
           } else {
-            final index = expenseTransactionCategories.indexOf(incomeTransactionCategories.firstWhere((element) => element.id == transaction.id));
-            expenseTransactionCategories[index] = transaction;
+            final index = expenseTransactionCategories.indexOf(incomeTransactionCategories.firstWhere((element) => element.id == category.id));
+            expenseTransactionCategories[index] = category;
           }
           emit(TransactionCategoriesLoadedState(
             incomeTransactionCategories: incomeTransactionCategories,
             expenseTransactionCategories: expenseTransactionCategories,
           ));
-        }
       });
     });
     on<GetTransactionCategoriesEvent>((event, emit) async {

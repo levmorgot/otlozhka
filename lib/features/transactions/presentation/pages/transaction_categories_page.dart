@@ -2,20 +2,23 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:otlozhka/features/transactions/domain/entities/transaction_entity.dart';
+import 'package:otlozhka/features/transactions/presentation/bloc/transaction_categories_bloc/transaction_categories_bloc.dart';
+import 'package:otlozhka/features/transactions/presentation/bloc/transaction_categories_bloc/transaction_categories_state.dart';
 import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_bloc.dart';
 import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_state.dart';
+import 'package:otlozhka/features/transactions/presentation/widgets/transaction_categories_widget.dart';
 import 'package:otlozhka/features/transactions/presentation/widgets/transactions_widget.dart';
 import 'package:otlozhka/routes/router.gr.dart';
 
 @RoutePage()
-class TransactionsPage extends StatefulWidget {
-  const TransactionsPage({super.key});
+class TransactionCategoriesPage extends StatefulWidget {
+  const TransactionCategoriesPage({super.key});
 
   @override
-  State<TransactionsPage> createState() => _TransactionsPageState();
+  State<TransactionCategoriesPage> createState() => _TransactionCategoriesPageState();
 }
 
-class _TransactionsPageState extends State<TransactionsPage> with TickerProviderStateMixin {
+class _TransactionCategoriesPageState extends State<TransactionCategoriesPage> with TickerProviderStateMixin {
   int _selectedIndex = 0;
   late TabController tabController;
 
@@ -44,7 +47,7 @@ class _TransactionsPageState extends State<TransactionsPage> with TickerProvider
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: 85,
-          title: const Text('Отложка'),
+          title: const Text('Категории'),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(20.0),
             child: Column(
@@ -83,24 +86,13 @@ class _TransactionsPageState extends State<TransactionsPage> with TickerProvider
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            AutoRouter.of(context).push(
-              AddTransactionsRoute(
-                type: _selectedIndex == 0 ? TransactionType.expense : TransactionType.income,
-              ),
-            );
-
-          },
-          child: const Icon(Icons.add),
-        ),
-        body: BlocBuilder<TransactionsBloc, TransactionsState>(builder: (context, state) {
-          if (state is TransactionsLoadedState) {
+        body: BlocBuilder<TransactionCategoriesBloc, TransactionCategoriesState>(builder: (context, state) {
+          if (state is TransactionCategoriesLoadedState) {
             return IndexedStack(
               index: _selectedIndex,
               children: [
-                TransactionsWidget(transactions: state.expenseTransactions),
-                TransactionsWidget(transactions: state.incomeTransactions),
+                TransactionCategoriesWidget(categories: state.expenseTransactionCategories),
+                TransactionCategoriesWidget(categories: state.incomeTransactionCategories),
               ],
             );
           } else if (state is TransactionsLoadingState) {

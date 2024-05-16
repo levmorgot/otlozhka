@@ -6,12 +6,14 @@ class ChangeTransactionCategoryParams extends Equatable {
   final String? name;
   final Color? color;
   final String? icon;
+  final double? maxMonthAmount;
 
   const ChangeTransactionCategoryParams({
     required this.id,
     this.name,
     this.color,
     this.icon,
+    this.maxMonthAmount,
   });
 
   @override
@@ -20,5 +22,6 @@ class ChangeTransactionCategoryParams extends Equatable {
         name,
         color,
         icon,
+        maxMonthAmount,
       ];
 }
