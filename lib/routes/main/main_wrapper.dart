@@ -52,21 +52,21 @@ class _MainWrapperPageState extends State<MainWrapperPage> {
                   label: 'Отложка',
                   icon: Container(
                     margin: const EdgeInsets.only(bottom: 2),
-                    child: Icon(Icons.monetization_on_outlined)
+                    child: const Icon(Icons.monetization_on_outlined)
                   ),
                 ),
                 BottomNavigationBarItem(
                   label: 'Категории',
                   icon: Container(
                       margin: const EdgeInsets.only(bottom: 2),
-                      child: Icon(Icons.monetization_on_outlined)
+                      child: const Icon(Icons.monetization_on_outlined)
                   ),
                 ),
                 BottomNavigationBarItem(
                   label: 'Статистика',
                   icon: Container(
                       margin: const EdgeInsets.only(bottom: 2),
-                      child: Icon(Icons.monetization_on_outlined)
+                      child: const Icon(Icons.monetization_on_outlined)
                   ),
                 ),
 
