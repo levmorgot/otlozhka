@@ -31,7 +31,6 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
       final currentState = state;
       emit(TransactionsLoadingState());
       final failureOrTransaction = await addTransaction(event.params);
-      log(event.params);
       failureOrTransaction.fold(
           (failure) => emit(TransactionsErrorState(
                 message: mapFailureMessage(failure),
@@ -82,7 +81,6 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
               )), (transactions) {
         final incomeTransactions = transactions.where((transaction) => transaction.type == TransactionType.income).toList();
         final expenseTransactions = transactions.where((transaction) => transaction.type == TransactionType.expense).toList();
-        log(expenseTransactions);
         emit(TransactionsLoadedState(
           incomeTransactions: incomeTransactions,
           expenseTransactions: expenseTransactions,

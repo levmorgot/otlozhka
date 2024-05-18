@@ -69,8 +69,6 @@ class TransactionCategoriesBloc extends Bloc<TransactionCategoriesEvent, Transac
           incomeTransactionCategories.addAll(currentState.incomeTransactionCategories);
           expenseTransactionCategories.addAll(currentState.expenseTransactionCategories);
         }
-        log(incomeTransactionCategories);
-        log(expenseTransactionCategories);
         if (category.type == TransactionType.income) {
 
           final index = incomeTransactionCategories.indexOf(incomeTransactionCategories.firstWhere((element) => element.id == category.id));

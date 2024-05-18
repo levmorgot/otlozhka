@@ -52,7 +52,6 @@ class FormTransactionController extends ChangeNotifier {
   }
 
   void changeTransactionDate(DateTime date) {
-    log(date);
     _transactionDate = date;
     notifyListeners();
   }
@@ -60,8 +59,6 @@ class FormTransactionController extends ChangeNotifier {
   void saveTransaction(BuildContext context, TransactionType type, {Transaction? transaction}) {
     if (_selectedCategoryId != null && _amountController.text.isNotEmpty && (double.tryParse(_amountController.text) ?? 0) > 0) {
       final bloc = getIt<TransactionsBloc>();
-      log(bloc.state);
-
       if (transaction != null) {
         bloc.add(
           ChangeTransactionEvent(
