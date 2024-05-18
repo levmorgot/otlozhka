@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:otlozhka/features/transactions/domain/entities/transaction_entity.dart';
+import 'package:otlozhka/features/transactions/domain/usecases/params/period_params.dart';
 
 abstract class TransactionsState extends Equatable {
   const TransactionsState();
@@ -15,10 +16,12 @@ class TransactionsLoadingState extends TransactionsState {}
 class TransactionsLoadedState extends TransactionsState {
   final List<Transaction> incomeTransactions;
   final List<Transaction> expenseTransactions;
+  final PeriodParams lastPeriod;
 
   const TransactionsLoadedState({
     required this.incomeTransactions,
     required this.expenseTransactions,
+    required this.lastPeriod,
   });
 
   @override
