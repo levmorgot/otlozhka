@@ -23,7 +23,6 @@ class _MainWrapperPageState extends State<MainWrapperPage> {
     final List<PageRouteInfo<dynamic>> routes = [
       const TransactionsRoute(),
       const TransactionCategoriesRoute(),
-      const TransactionsRoute(),
     ];
 
     return AutoTabsScaffold(
@@ -54,10 +53,6 @@ class _MainWrapperPageState extends State<MainWrapperPage> {
             ),
             BottomNavigationBarItem(
               label: 'Категории',
-              icon: Container(margin: const EdgeInsets.only(bottom: 2), child: const Icon(Icons.monetization_on_outlined)),
-            ),
-            BottomNavigationBarItem(
-              label: 'Статистика',
               icon: Container(margin: const EdgeInsets.only(bottom: 2), child: const Icon(Icons.monetization_on_outlined)),
             ),
           ],

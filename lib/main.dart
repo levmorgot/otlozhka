@@ -18,6 +18,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final appRouterAuto = AppRouter();
     return MaterialApp.router(
+      theme: ThemeData.dark().copyWith(
+        appBarTheme: const AppBarTheme(
+          centerTitle: true,
+        )
+      ),
       debugShowCheckedModeBanner: false,
       routerConfig: appRouterAuto.config(),
     );

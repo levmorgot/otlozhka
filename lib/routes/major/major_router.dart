@@ -9,5 +9,7 @@ final majorRouter = AutoRoute(
   children: [
     AutoRoute(page: MajorRoute.page, initial: true),
     mainRouter,
+    AutoRoute(page: TransactionCategoryRoute.page),
+    AutoRoute(page: TransactionRoute.page),
   ],
 );

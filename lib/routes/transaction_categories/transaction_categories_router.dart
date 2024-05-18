@@ -6,6 +6,5 @@ final transactionCategoriesRouter = AutoRoute(
   page: TransactionCategoriesWrapper.page,
   children: [
     AutoRoute(page: TransactionCategoriesRoute.page, initial: true),
-    AutoRoute(page: TransactionCategoryRoute.page),
   ],
 );
