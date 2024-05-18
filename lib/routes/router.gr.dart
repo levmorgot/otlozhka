@@ -83,10 +83,11 @@ abstract class $AppRouter extends _i12.RootStackRouter {
       final args = routeData.argsAs<TransactionCategoryRouteArgs>();
       return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i7.TransactionCategoryPage(
+        child: _i12.WrappedRoute(
+            child: _i7.TransactionCategoryPage(
           key: args.key,
           category: args.category,
-        ),
+        )),
       );
     },
     TransactionCategoryWrapper.name: (routeData) {

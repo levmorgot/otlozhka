@@ -12,7 +12,8 @@ import 'package:otlozhka/features/transactions/domain/usecases/transactions_cate
 import 'package:otlozhka/features/transactions/presentation/bloc/transaction_categories_bloc/transaction_categories_event.dart';
 import 'package:otlozhka/features/transactions/presentation/bloc/transaction_categories_bloc/transaction_categories_state.dart';
 
-@Injectable()
+// @Injectable()
+@LazySingleton()
 class TransactionCategoriesBloc extends Bloc<TransactionCategoriesEvent, TransactionCategoriesState> {
   final AddTransactionCategory addTransactionCategory;
   final ChangeTransactionCategory changeTransactionCategory;

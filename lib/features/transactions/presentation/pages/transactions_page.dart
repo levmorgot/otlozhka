@@ -1,10 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:otlozhka/core/injectable/injectable_init.dart';
 import 'package:otlozhka/core/utils/periods.dart';
 import 'package:otlozhka/features/transactions/domain/entities/transaction_entity.dart';
 import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_bloc.dart';
 import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_event.dart';
+import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_state.dart';
 import 'package:otlozhka/features/transactions/presentation/widgets/period_buttons.dart';
 import 'package:otlozhka/features/transactions/presentation/widgets/transactions_widget.dart';
 import 'package:otlozhka/routes/router.gr.dart';
@@ -45,8 +47,37 @@ class _TransactionsPageState extends State<TransactionsPage> with TickerProvider
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 85,
-          title: const Text('Отложка'),
+          toolbarHeight: 95,
+          title: Column(
+            children: [
+              const Text('Отложка'),
+              BlocBuilder<TransactionsBloc, TransactionsState>(
+                  builder: (context, state) {
+                    if (state is TransactionsLoadedState) {
+                      final incomeTransactions = state.incomeTransactions;
+                      final expenseTransactions = state.expenseTransactions;
+                      double incomeTransactionsAmount = 0;
+                      double expenseTransactionsAmount = 0;
+                      for (var transaction in incomeTransactions) {
+                        incomeTransactionsAmount+=transaction.amount;
+                      }
+                      for (var transaction in expenseTransactions) {
+                        expenseTransactionsAmount+=transaction.amount;
+                      }
+                      final allAmount = incomeTransactionsAmount - expenseTransactionsAmount;
+                      return Text('${allAmount.toStringAsFixed(2)} ₽', style: TextStyle(
+                        color: allAmount > 0 ? Colors.green : Colors.red,
+                      ),);
+                    }
+                    if (state is TransactionsLoadingState) {
+                      return const CircularProgressIndicator();
+
+                    }
+                    return const SizedBox();
+                  }
+              ),
+            ],
+          ),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(20.0),
             child: Column(

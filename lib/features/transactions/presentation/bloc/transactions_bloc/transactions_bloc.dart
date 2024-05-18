@@ -12,7 +12,8 @@ import 'package:otlozhka/features/transactions/domain/usecases/transactions/get_
 import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_event.dart';
 import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_state.dart';
 
-@Injectable()
+// @Injectable()
+@LazySingleton()
 class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   final AddTransaction addTransaction;
   final ChangeTransaction changeTransaction;
@@ -81,6 +82,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
               )), (transactions) {
         final incomeTransactions = transactions.where((transaction) => transaction.type == TransactionType.income).toList();
         final expenseTransactions = transactions.where((transaction) => transaction.type == TransactionType.expense).toList();
+        log(expenseTransactions);
         emit(TransactionsLoadedState(
           incomeTransactions: incomeTransactions,
           expenseTransactions: expenseTransactions,
