@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:otlozhka/routes/transaction_categories/transaction_categories_router.dart';
 import 'package:otlozhka/routes/transactions/transactions_router.dart';
 
 import '../router.gr.dart';
@@ -8,6 +7,6 @@ final mainRouter = AutoRoute(
   page: MainWrapperRoute.page,
   children: [
     transactionsRouter,
-    transactionCategoriesRouter,
+    AutoRoute(page: TransactionCategoriesRoute.page),
   ],
 );

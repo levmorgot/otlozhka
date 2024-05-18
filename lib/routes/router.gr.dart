@@ -19,7 +19,7 @@ import 'package:otlozhka/features/transactions/presentation/pages/form_transacti
 import 'package:otlozhka/features/transactions/presentation/pages/transaction_categories_page.dart'
     as _i6;
 import 'package:otlozhka/features/transactions/presentation/pages/transaction_category_page.dart'
-    as _i8;
+    as _i7;
 import 'package:otlozhka/features/transactions/presentation/pages/transaction_page.dart'
     as _i9;
 import 'package:otlozhka/features/transactions/presentation/pages/transactions_page.dart'
@@ -29,8 +29,8 @@ import 'package:otlozhka/routes/form_transaction/form_transaction_wrapper.dart'
 import 'package:otlozhka/routes/main/main_wrapper.dart' as _i3;
 import 'package:otlozhka/routes/major/major.dart' as _i4;
 import 'package:otlozhka/routes/major/major_wrapper.dart' as _i5;
-import 'package:otlozhka/routes/transaction_categories/transaction_categories_wrapper.dart'
-    as _i7;
+import 'package:otlozhka/routes/transaction_category/transaction_category_wrapper.dart'
+    as _i8;
 import 'package:otlozhka/routes/transactions/transactions_wrapper.dart' as _i11;
 
 abstract class $AppRouter extends _i12.RootStackRouter {
@@ -79,21 +79,20 @@ abstract class $AppRouter extends _i12.RootStackRouter {
         child: const _i6.TransactionCategoriesPage(),
       );
     },
-    TransactionCategoriesWrapper.name: (routeData) {
-      return _i12.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child:
-            _i12.WrappedRoute(child: const _i7.TransactionCategoriesWrapper()),
-      );
-    },
     TransactionCategoryRoute.name: (routeData) {
       final args = routeData.argsAs<TransactionCategoryRouteArgs>();
       return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i8.TransactionCategoryPage(
+        child: _i7.TransactionCategoryPage(
           key: args.key,
           category: args.category,
         ),
+      );
+    },
+    TransactionCategoryWrapper.name: (routeData) {
+      return _i12.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i12.WrappedRoute(child: const _i8.TransactionCategoryWrapper()),
       );
     },
     TransactionRoute.name: (routeData) {
@@ -237,21 +236,7 @@ class TransactionCategoriesRoute extends _i12.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.TransactionCategoriesWrapper]
-class TransactionCategoriesWrapper extends _i12.PageRouteInfo<void> {
-  const TransactionCategoriesWrapper({List<_i12.PageRouteInfo>? children})
-      : super(
-          TransactionCategoriesWrapper.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'TransactionCategoriesWrapper';
-
-  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i8.TransactionCategoryPage]
+/// [_i7.TransactionCategoryPage]
 class TransactionCategoryRoute
     extends _i12.PageRouteInfo<TransactionCategoryRouteArgs> {
   TransactionCategoryRoute({
@@ -287,6 +272,20 @@ class TransactionCategoryRouteArgs {
   String toString() {
     return 'TransactionCategoryRouteArgs{key: $key, category: $category}';
   }
+}
+
+/// generated route for
+/// [_i8.TransactionCategoryWrapper]
+class TransactionCategoryWrapper extends _i12.PageRouteInfo<void> {
+  const TransactionCategoryWrapper({List<_i12.PageRouteInfo>? children})
+      : super(
+          TransactionCategoryWrapper.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'TransactionCategoryWrapper';
+
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
 }
 
 /// generated route for

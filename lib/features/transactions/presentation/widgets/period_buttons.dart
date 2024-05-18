@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:otlozhka/core/injectable/injectable_init.dart';
-import 'package:otlozhka/core/utils/periods.dart';
-import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_bloc.dart';
-import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_event.dart';
 
 class PeriodButtons extends StatefulWidget {
   final Widget body;
+  final Function(int) updatePeriodTransactions;
 
-  const PeriodButtons({super.key, required this.body});
+  const PeriodButtons({super.key, required this.body, required this.updatePeriodTransactions});
 
   @override
   State<PeriodButtons> createState() => _PeriodButtonsState();
@@ -16,7 +13,6 @@ class PeriodButtons extends StatefulWidget {
 class _PeriodButtonsState extends State<PeriodButtons> with TickerProviderStateMixin {
   int _selectedIndex = 2;
   late TabController tabController;
-
 
   @override
   void initState() {
@@ -33,24 +29,7 @@ class _PeriodButtonsState extends State<PeriodButtons> with TickerProviderStateM
   void _onItemTapped(int index) {
     if (index != _selectedIndex) {
       setState(() => _selectedIndex = index);
-      _getPeriodTransactions(index);
-    }
-  }
-
-  void _getPeriodTransactions(int index) {
-    switch (index) {
-      case 0:
-        getIt<TransactionsBloc>().add(GetTransactionsEvent(params: oneDay()));
-        break;
-      case 1:
-        getIt<TransactionsBloc>().add(GetTransactionsEvent(params: oneWeek()));
-        break;
-      case 2:
-        getIt<TransactionsBloc>().add(GetTransactionsEvent(params: oneMonth()));
-        break;
-      case 3:
-        getIt<TransactionsBloc>().add(GetTransactionsEvent(params: oneYear()));
-        break;
+      widget.updatePeriodTransactions(index);
     }
   }
 

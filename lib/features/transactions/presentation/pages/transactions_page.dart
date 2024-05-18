@@ -1,6 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:otlozhka/core/injectable/injectable_init.dart';
+import 'package:otlozhka/core/utils/periods.dart';
 import 'package:otlozhka/features/transactions/domain/entities/transaction_entity.dart';
+import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_bloc.dart';
+import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_event.dart';
 import 'package:otlozhka/features/transactions/presentation/widgets/period_buttons.dart';
 import 'package:otlozhka/features/transactions/presentation/widgets/transactions_widget.dart';
 import 'package:otlozhka/routes/router.gr.dart';
@@ -99,6 +103,23 @@ class _TransactionsPageState extends State<TransactionsPage> with TickerProvider
               TransactionsWidget(type: TransactionType.income),
             ],
           ),
+          updatePeriodTransactions: (index) {
+            final bloc = getIt<TransactionsBloc>();
+            switch (index) {
+              case 0:
+                bloc.add(GetTransactionsEvent(params: oneDay()));
+                break;
+              case 1:
+                bloc.add(GetTransactionsEvent(params: oneWeek()));
+                break;
+              case 2:
+                bloc.add(GetTransactionsEvent(params: oneMonth()));
+                break;
+              case 3:
+                bloc.add(GetTransactionsEvent(params: oneYear()));
+                break;
+            }
+          },
         ),
       ),
     );

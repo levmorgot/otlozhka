@@ -53,6 +53,8 @@ import 'package:otlozhka/features/transactions/presentation/bloc/transaction_cat
     as _i24;
 import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_bloc.dart'
     as _i25;
+import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_of_category_bloc.dart'
+    as _i26;
 import 'package:otlozhka/features/transactions/presentation/controllers/form_transaction_controller.dart'
     as _i3;
 
@@ -121,6 +123,9 @@ extension GetItInjectableX on _i1.GetIt {
           deleteTransaction: gh<_i15.DeleteTransaction>(),
           getTransactions: gh<_i23.GetTransactions>(),
         ));
+    gh.factory<_i26.TransactionsOfCategoryBloc>(() =>
+        _i26.TransactionsOfCategoryBloc(
+            getTransactions: gh<_i23.GetTransactions>()));
     return this;
   }
 }

@@ -78,9 +78,9 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
       failureOrTransactions.fold(
           (failure) => emit(TransactionsErrorState(
                 message: mapFailureMessage(failure),
-              )), (transaction) {
-        final incomeTransactions = transaction.where((transaction) => transaction.type == TransactionType.income).toList();
-        final expenseTransactions = transaction.where((transaction) => transaction.type == TransactionType.expense).toList();
+              )), (transactions) {
+        final incomeTransactions = transactions.where((transaction) => transaction.type == TransactionType.income).toList();
+        final expenseTransactions = transactions.where((transaction) => transaction.type == TransactionType.expense).toList();
         emit(TransactionsLoadedState(
           incomeTransactions: incomeTransactions,
           expenseTransactions: expenseTransactions,

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:otlozhka/features/transactions/domain/entities/transaction_category_entity.dart';
 import 'package:otlozhka/features/transactions/domain/usecases/params/add_transaction_params.dart';
 import 'package:otlozhka/features/transactions/domain/usecases/params/change_transaction_params.dart';
 import 'package:otlozhka/features/transactions/domain/usecases/params/period_params.dart';
@@ -54,3 +55,12 @@ class GetTransactionsEvent extends TransactionsEvent {
   List<Object> get props => [params];
 }
 
+
+class GetTransactionsByCategoryEvent extends TransactionsEvent {
+  final PeriodParams params;
+  final TransactionCategory category;
+  const GetTransactionsByCategoryEvent({required this.params, required this.category});
+
+  @override
+  List<Object> get props => [params];
+}

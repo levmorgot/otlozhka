@@ -28,6 +28,17 @@ class TransactionsLoadedState extends TransactionsState {
   List<Object> get props => [incomeTransactions, expenseTransactions];
 }
 
+class TransactionsOfCategoryLoadedState extends TransactionsState {
+  final List<Transaction> transactions;
+
+  const TransactionsOfCategoryLoadedState({
+    required this.transactions,
+  });
+
+  @override
+  List<Object> get props => [transactions];
+}
+
 class TransactionsErrorState extends TransactionsState {
   final String message;
 
