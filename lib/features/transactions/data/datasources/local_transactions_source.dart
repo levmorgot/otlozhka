@@ -5,6 +5,7 @@ import 'package:otlozhka/core/error/failure.dart';
 import 'package:otlozhka/features/transactions/domain/entities/transaction_entity.dart';
 import 'package:otlozhka/features/transactions/domain/usecases/params/add_transaction_params.dart';
 import 'package:otlozhka/features/transactions/domain/usecases/params/change_transaction_params.dart';
+import 'package:otlozhka/features/transactions/domain/usecases/params/period_params.dart';
 
 abstract class TransactionSource {
   Future<Either<Failure, Transaction>> addTransaction(AddTransactionParams params);
@@ -13,7 +14,7 @@ abstract class TransactionSource {
 
   Future<Either<Failure, Transaction>> getTransaction(int id);
 
-  Future<Either<Failure, List<Transaction>>> getTransactions();
+  Future<Either<Failure, List<Transaction>>> getTransactions(PeriodParams params);
 
   Future<Either<Failure, List<Transaction>>> getTransactionsByType(TransactionType type);
 
@@ -49,8 +50,14 @@ class LocalTransactionSource implements TransactionSource {
   }
 
   @override
-  Future<Either<Failure, List<Transaction>>> getTransactions() {
-    return _database.getTransactions();
+  Future<Either<Failure, List<Transaction>>> getTransactions(PeriodParams params) async {
+    final failureOrTransactions = await _database.getTransactions();
+    return failureOrTransactions.fold(
+      (l) => Left(l),
+      (transactions) {
+        return Right(transactions.where((transaction) => transaction.transactionDate.isAfter(params.start) && transaction.transactionDate.isBefore(params.end)).toList());
+      },
+    );
   }
 
   @override

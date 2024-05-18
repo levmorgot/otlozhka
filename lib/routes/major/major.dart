@@ -9,13 +9,13 @@ class MajorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future<void> _load() async {
+    Future<void> load() async {
       AutoRouter.of(context).replace(const TransactionsRoute());
       return;
     }
 
     return FutureBuilder(
-      future: _load(),
+      future: load(),
       builder: (context, snapshot) => const Scaffold(),
     );
   }

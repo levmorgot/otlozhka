@@ -6,6 +6,7 @@ import 'package:otlozhka/features/transactions/domain/entities/transaction_entit
 import 'package:otlozhka/features/transactions/domain/repositories/transaction_repository.dart';
 import 'package:otlozhka/features/transactions/domain/usecases/params/add_transaction_params.dart';
 import 'package:otlozhka/features/transactions/domain/usecases/params/change_transaction_params.dart';
+import 'package:otlozhka/features/transactions/domain/usecases/params/period_params.dart';
 
 @Injectable(as: ITransactionRepository)
 class TransactionRepository implements ITransactionRepository {
@@ -33,8 +34,8 @@ class TransactionRepository implements ITransactionRepository {
   }
 
   @override
-  Future<Either<Failure, List<Transaction>>> getTransactions() {
-    return _source.getTransactions();
+  Future<Either<Failure, List<Transaction>>> getTransactions(PeriodParams params) {
+    return _source.getTransactions(params);
   }
 
   @override

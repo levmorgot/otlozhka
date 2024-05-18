@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:otlozhka/core/utils/app_logger.dart';
@@ -11,7 +10,7 @@ import 'package:otlozhka/features/transactions/domain/usecases/transactions/get_
 import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_event.dart';
 import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_state.dart';
 
-@Injectable()
+@LazySingleton()
 class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   final AddTransaction addTransaction;
   final ChangeTransaction changeTransaction;
@@ -97,7 +96,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
     on<GetTransactionsEvent>((event, emit) async {
       if (state is TransactionsLoadingState) return;
       emit(TransactionsLoadingState());
-      final failureOrTransactions = await getTransactions(const None());
+      final failureOrTransactions = await getTransactions(event.params);
 
       failureOrTransactions.fold(
           (failure) => emit(TransactionsErrorState(

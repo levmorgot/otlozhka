@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:otlozhka/features/transactions/domain/usecases/params/add_transaction_params.dart';
 import 'package:otlozhka/features/transactions/domain/usecases/params/change_transaction_params.dart';
+import 'package:otlozhka/features/transactions/domain/usecases/params/period_params.dart';
 
 abstract class TransactionsEvent extends Equatable {
   const TransactionsEvent();
@@ -46,6 +47,10 @@ class DeleteTransactionEvent extends TransactionsEvent {
 }
 
 class GetTransactionsEvent extends TransactionsEvent {
-  const GetTransactionsEvent();
+  final PeriodParams params;
+  const GetTransactionsEvent({required this.params});
+
+  @override
+  List<Object> get props => [params];
 }
 

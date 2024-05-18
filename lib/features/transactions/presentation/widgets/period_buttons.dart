@@ -1,26 +1,27 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:otlozhka/features/transactions/domain/entities/transaction_entity.dart';
-import 'package:otlozhka/features/transactions/presentation/widgets/period_buttons.dart';
-import 'package:otlozhka/features/transactions/presentation/widgets/transactions_widget.dart';
-import 'package:otlozhka/routes/router.gr.dart';
+import 'package:otlozhka/core/injectable/injectable_init.dart';
+import 'package:otlozhka/core/utils/periods.dart';
+import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_bloc.dart';
+import 'package:otlozhka/features/transactions/presentation/bloc/transactions_bloc/transactions_event.dart';
 
-@RoutePage()
-class TransactionsPage extends StatefulWidget {
-  const TransactionsPage({super.key});
+class PeriodButtons extends StatefulWidget {
+  final Widget body;
+
+  const PeriodButtons({super.key, required this.body});
 
   @override
-  State<TransactionsPage> createState() => _TransactionsPageState();
+  State<PeriodButtons> createState() => _PeriodButtonsState();
 }
 
-class _TransactionsPageState extends State<TransactionsPage> with TickerProviderStateMixin {
-  int _selectedIndex = 0;
+class _PeriodButtonsState extends State<PeriodButtons> with TickerProviderStateMixin {
+  int _selectedIndex = 2;
   late TabController tabController;
+
 
   @override
   void initState() {
-    tabController = TabController(length: 2, vsync: this, initialIndex: _selectedIndex);
     super.initState();
+    tabController = TabController(length: 4, vsync: this, initialIndex: _selectedIndex);
   }
 
   @override
@@ -32,17 +33,34 @@ class _TransactionsPageState extends State<TransactionsPage> with TickerProvider
   void _onItemTapped(int index) {
     if (index != _selectedIndex) {
       setState(() => _selectedIndex = index);
+      _getPeriodTransactions(index);
+    }
+  }
+
+  void _getPeriodTransactions(int index) {
+    switch (index) {
+      case 0:
+        getIt<TransactionsBloc>().add(GetTransactionsEvent(params: oneDay()));
+        break;
+      case 1:
+        getIt<TransactionsBloc>().add(GetTransactionsEvent(params: oneWeek()));
+        break;
+      case 2:
+        getIt<TransactionsBloc>().add(GetTransactionsEvent(params: oneMonth()));
+        break;
+      case 3:
+        getIt<TransactionsBloc>().add(GetTransactionsEvent(params: oneYear()));
+        break;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 85,
-          title: const Text('Отложка'),
+          toolbarHeight: 30,
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(20.0),
             child: Column(
@@ -67,10 +85,10 @@ class _TransactionsPageState extends State<TransactionsPage> with TickerProvider
                     // color: AppColors.mainBackground2,
                   ),
                   tabs: const [
-                    Tab(
-                      text: 'Расходы',
-                    ),
-                    Tab(text: 'Доходы'),
+                    Tab(text: 'День'),
+                    Tab(text: 'Неделя'),
+                    Tab(text: 'Месяц'),
+                    Tab(text: 'Год'),
                   ],
                 ),
                 Container(
@@ -81,25 +99,7 @@ class _TransactionsPageState extends State<TransactionsPage> with TickerProvider
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            AutoRouter.of(context).push(
-              FormTransactionRoute(
-                type: _selectedIndex == 0 ? TransactionType.expense : TransactionType.income,
-              ),
-            );
-          },
-          child: const Icon(Icons.add),
-        ),
-        body: PeriodButtons(
-          body: IndexedStack(
-            index: _selectedIndex,
-            children: const [
-              TransactionsWidget(type: TransactionType.expense),
-              TransactionsWidget(type: TransactionType.income),
-            ],
-          ),
-        ),
+        body: widget.body,
       ),
     );
   }
