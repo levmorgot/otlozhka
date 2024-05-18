@@ -21,7 +21,7 @@ class TransactionCard extends StatelessWidget {
       },
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.black12,
+          color: Colors.grey[800],
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Padding(
@@ -42,7 +42,7 @@ class TransactionCard extends StatelessWidget {
                 ],
               ),
               const Spacer(),
-              Text('${transaction.type == TransactionType.income ? '+' : '-'}${transaction.amount} ₽')
+              Text('${transaction.type == TransactionType.income ? '+' : '-'}${transaction.amount.toStringAsFixed(2)} ₽')
             ],
           ),
         ),

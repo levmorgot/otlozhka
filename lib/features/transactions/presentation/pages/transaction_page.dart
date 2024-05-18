@@ -24,36 +24,83 @@ class TransactionPage extends StatelessWidget {
           appBar: AppBar(
             title: const Text('Транзакиця'),
           ),
-          body: Column(
-            children: [
-              const Text('Сумма'),
-              Text('${transaction.amount} Р'),
-              const Text('Тип'),
-              Text(category.type == TransactionType.income ? 'Доходы' : 'Расходы'),
-              const Text('Категория'),
-              InkWell(
-                onTap: () {
-                  AutoRouter.of(context).push(TransactionCategoryRoute(category: category));
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [CategoryIcon(category: category, radius: 20), const Gap(10), Text(category.name)],
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Сумма',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
-              TextButton(
-                onPressed: () {
-                  AutoRouter.of(context).push(FormTransactionRoute(type: transaction.type, transaction: transaction));
-                },
-                child: const Text('Редактировать'),
-              ),
-              TextButton(
-                onPressed: () {
-                  getIt<TransactionsBloc>().add(DeleteTransactionEvent(id: transaction.id));
-                  AutoRouter.of(context).maybePop();
-                },
-                child: const Text('Удалить'),
-              ),
-            ],
+                Text('${transaction.amount.toStringAsFixed(2)} ₽'),
+                const Gap(20),
+                const Text(
+                  'Тип',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Text(
+                  category.type == TransactionType.income ? 'Доходы' : 'Расходы',
+                  style: TextStyle(
+                    color: category.type == TransactionType.income ? Colors.green : Colors.red,
+                  ),
+                ),
+                const Gap(20),
+                const Text(
+                  'Категория',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                ),
+                const Gap(10),
+                InkWell(
+                  onTap: () {
+                    AutoRouter.of(context).push(TransactionCategoryRoute(category: category));
+                  },
+                  child: Row(
+                    children: [CategoryIcon(category: category, radius: 20), const Gap(10), Text(category.name)],
+                  ),
+                ),
+                const Gap(40),
+                Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          AutoRouter.of(context).push(FormTransactionRoute(type: transaction.type, transaction: transaction));
+                        },
+                        child: const Text(
+                          'Редактировать',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      const Gap(20),
+                      TextButton(
+                        onPressed: () {
+                          getIt<TransactionsBloc>().add(DeleteTransactionEvent(id: transaction.id));
+                          AutoRouter.of(context).maybePop();
+                        },
+                        child: const Text(
+                          'Удалить',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           )),
     );
   }

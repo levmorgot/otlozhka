@@ -81,7 +81,7 @@ class TransactionsWidget extends StatelessWidget {
                               if (transactions.isNotEmpty)
                                 Align(
                                   alignment: Alignment.center,
-                                  child: Text('${transactionsAmount.round()} P'),
+                                  child: Text('${transactionsAmount.round()} ₽'),
                                 )
                             ],
                           ),
