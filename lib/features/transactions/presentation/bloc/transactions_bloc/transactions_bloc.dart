@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:otlozhka/core/utils/app_logger.dart';
 import 'package:otlozhka/core/utils/failure_message.dart';
 import 'package:otlozhka/core/utils/periods.dart';
 import 'package:otlozhka/features/transactions/domain/entities/transaction_entity.dart';

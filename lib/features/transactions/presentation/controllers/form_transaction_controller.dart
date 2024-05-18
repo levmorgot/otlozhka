@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:otlozhka/core/injectable/injectable_init.dart';
-import 'package:otlozhka/core/utils/app_logger.dart';
 import 'package:otlozhka/features/transactions/domain/entities/transaction_entity.dart';
 import 'package:otlozhka/features/transactions/domain/usecases/params/add_transaction_params.dart';
 import 'package:otlozhka/features/transactions/domain/usecases/params/change_transaction_params.dart';
