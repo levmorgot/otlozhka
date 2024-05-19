@@ -27,14 +27,26 @@ class FormTransactionsWidget extends StatelessWidget {
               alignment: Alignment.center,
               child: SizedBox(
                 width: 150,
-                child: TextFormField(
-                  controller: form.amountController,
-                  keyboardType: TextInputType.number,
-                  autofocus: true,
-                  decoration: const InputDecoration(suffixText: 'Руб'),
-                  onChanged: (value) {
-                    form.changeAmount(value);
-                  },
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: TextFormField(
+                        controller: form.amountController,
+                        keyboardType: TextInputType.number,
+                        autofocus: true,
+                        onChanged: (value) {
+                          form.changeAmount(value);
+                        },
+                      ),
+                    ),
+                    const Text(
+                      '₽',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),

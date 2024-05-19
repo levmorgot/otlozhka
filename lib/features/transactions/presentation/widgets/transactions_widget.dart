@@ -90,19 +90,23 @@ class TransactionsWidget extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    child: ListView.separated(
-                      itemBuilder: (context, index) {
-                        final category = periodCategories.firstWhere(
-                          (element) => element.id == transactions[index].categoryId,
-                          orElse: () => TransactionCategory.otherCategory(transactions[index].type),
-                        );
-                        return TransactionCard(transaction: transactions[index], category: category);
-                      },
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(height: 6);
-                      },
-                      itemCount: transactions.length,
-                    ),
+                    child: transactions.isNotEmpty
+                        ? ListView.separated(
+                            itemBuilder: (context, index) {
+                              final category = periodCategories.firstWhere(
+                                (element) => element.id == transactions[index].categoryId,
+                                orElse: () => TransactionCategory.otherCategory(transactions[index].type),
+                              );
+                              return TransactionCard(transaction: transactions[index], category: category);
+                            },
+                            separatorBuilder: (context, index) {
+                              return const SizedBox(height: 6);
+                            },
+                            itemCount: transactions.length,
+                          )
+                        : Center(
+                            child: Text('Транзакций нет'),
+                          ),
                   ),
                 ],
               );

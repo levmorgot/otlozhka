@@ -41,6 +41,7 @@ class TransactionCategoryPage extends StatelessWidget implements AutoRouteWrappe
           body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
                   'Тип',
@@ -56,27 +57,48 @@ class TransactionCategoryPage extends StatelessWidget implements AutoRouteWrappe
                   ),
                 ),
                 const Gap(20),
-                TextField(
-                  controller: maxMonthAmountController,
-                ),
-                const Gap(10),
-                TextButton(
-                  onPressed: () {
-                    BlocProvider.of<TransactionCategoriesBloc>(context).add(ChangeTransactionCategoryEvent(
-                        params: ChangeTransactionCategoryParams(
-                            id: category.id,
-                            maxMonthAmount: double.tryParse(
-                              maxMonthAmountController.text,
-                            ))));
-                  },
-                  child: const Text(
-                    'Подтвердить',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
+                if (category.type == TransactionType.expense)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Планирую тартить',
+                      ),
+                      const Gap(10),
+                      SizedBox(
+                        width: 200,
+                        child: Row(
+                          children: [
+                            Flexible(
+                              child: TextField(
+                                controller: maxMonthAmountController,
+                                keyboardType: TextInputType.number,
+                              ),
+                            ),
+                            Text('₽ в месяц'),
+                          ],
+                        ),
+                      ),
+                      const Gap(10),
+                      TextButton(
+                        onPressed: () {
+                          BlocProvider.of<TransactionCategoriesBloc>(context).add(ChangeTransactionCategoryEvent(
+                              params: ChangeTransactionCategoryParams(
+                                  id: category.id,
+                                  maxMonthAmount: double.tryParse(
+                                    maxMonthAmountController.text,
+                                  ))));
+                        },
+                        child: const Text(
+                          'Подтвердить',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
                 const Gap(20),
                 const Text(
                   'Транзакции в этой категории',
@@ -94,15 +116,19 @@ class TransactionCategoryPage extends StatelessWidget implements AutoRouteWrappe
                       }
                       if (state is TransactionsOfCategoryLoadedState) {
                         final transactions = state.transactions;
-                        return ListView.separated(
-                          itemBuilder: (context, index) {
-                            return TransactionCard(transaction: transactions[index], category: category);
-                          },
-                          separatorBuilder: (context, index) {
-                            return const SizedBox(height: 6);
-                          },
-                          itemCount: transactions.length,
-                        );
+                        return transactions.isNotEmpty
+                            ? ListView.separated(
+                                itemBuilder: (context, index) {
+                                  return TransactionCard(transaction: transactions[index], category: category);
+                                },
+                                separatorBuilder: (context, index) {
+                                  return const SizedBox(height: 6);
+                                },
+                                itemCount: transactions.length,
+                              )
+                            : Center(
+                                child: Text('Транзакций нет'),
+                              );
                       } else if (state is TransactionsLoadingState) {
                         return const Center(child: CircularProgressIndicator());
                       } else {

@@ -18,7 +18,7 @@ class DateTransactionButton extends StatelessWidget {
       },
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: date.trim() == form.transactionDate.trim() ? Colors.black12 : null,
+          color: date.trim() == form.transactionDate.trim() ? Colors.grey[800] : null,
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Padding(
