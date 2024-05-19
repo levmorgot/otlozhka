@@ -34,15 +34,10 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
           (failure) => emit(TransactionsErrorState(
                 message: mapFailureMessage(failure),
               )), (transaction) {
-        final incomeTransactions = <Transaction>[];
-        final expenseTransactions = <Transaction>[];
         PeriodParams? lastPeriod;
         if (currentState is TransactionsLoadedState) {
-          incomeTransactions.addAll(currentState.incomeTransactions);
-          expenseTransactions.addAll(currentState.expenseTransactions);
           lastPeriod = currentState.lastPeriod;
         }
-
         add(GetTransactionsEvent(params: lastPeriod ?? oneWeek()));
       });
     });
@@ -57,12 +52,8 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
           (failure) => emit(TransactionsErrorState(
                 message: mapFailureMessage(failure),
               )), (transaction) {
-        final incomeTransactions = <Transaction>[];
-        final expenseTransactions = <Transaction>[];
         PeriodParams? lastPeriod;
         if (currentState is TransactionsLoadedState) {
-          incomeTransactions.addAll(currentState.incomeTransactions);
-          expenseTransactions.addAll(currentState.expenseTransactions);
           lastPeriod = currentState.lastPeriod;
         }
 
@@ -70,7 +61,6 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
       });
     });
     on<GetTransactionsEvent>((event, emit) async {
-      // if (state is TransactionsLoadingState) return;
       emit(TransactionsLoadingState());
       final failureOrTransactions = await getTransactions(event.params);
 
@@ -97,25 +87,12 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
           (failure) => emit(TransactionsErrorState(
                 message: mapFailureMessage(failure),
               )), (transaction) {
-        final incomeTransactions = <Transaction>[];
-        final expenseTransactions = <Transaction>[];
         PeriodParams? lastPeriod;
         if (currentState is TransactionsLoadedState) {
-          incomeTransactions.addAll(currentState.incomeTransactions);
-          expenseTransactions.addAll(currentState.expenseTransactions);
           lastPeriod = currentState.lastPeriod;
         }
 
-        if (transaction.type == TransactionType.income) {
-          incomeTransactions.remove(transaction);
-        } else {
-          expenseTransactions.remove(transaction);
-        }
-        emit(TransactionsLoadedState(
-          incomeTransactions: incomeTransactions,
-          expenseTransactions: expenseTransactions,
-          lastPeriod: lastPeriod ?? oneWeek(),
-        ));
+        add(GetTransactionsEvent(params: lastPeriod ?? oneWeek()));
       });
     });
   }

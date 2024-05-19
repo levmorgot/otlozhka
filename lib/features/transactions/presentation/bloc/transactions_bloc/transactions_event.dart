@@ -62,5 +62,5 @@ class GetTransactionsByCategoryEvent extends TransactionsEvent {
   const GetTransactionsByCategoryEvent({required this.params, required this.category});
 
   @override
-  List<Object> get props => [params];
+  List<Object> get props => [params, category];
 }

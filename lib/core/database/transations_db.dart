@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:otlozhka/core/error/failure.dart';
-import 'package:otlozhka/core/injectable/injectable_init.dart';
+import 'package:otlozhka/core/utils/app_logger.dart';
 import 'package:otlozhka/core/utils/enum.dart';
 import 'package:otlozhka/core/utils/extensoins.dart';
 import 'package:otlozhka/features/transactions/domain/entities/transaction_category_entity.dart';
@@ -29,7 +29,7 @@ class TransactionsDatabase {
   }
 
   Future<void> init() async {
-    await getIt<TransactionsDatabase>().addDefaultTransactionCategories();
+    await addDefaultTransactionCategories();
   }
 
   Future<Database> _initDatabase(String filePath) async {
@@ -37,8 +37,6 @@ class TransactionsDatabase {
     final path = join(databasePath, filePath);
     return openDatabase(path, version: 2, onCreate: _createDatabase);
   }
-
-
 
   Future _createDatabase(Database database, int version) async {
     const idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
@@ -74,11 +72,11 @@ class TransactionsDatabase {
 
   Future<void> addDefaultTransactionCategories() async {
     final db = await database;
-    final defaultCategoriesIds = defaultCategories.map((category) => category.id).toList();
-    await db.delete(tableTransactionCategories, where: '${TransactionCategoryFields.id} IN (${defaultCategoriesIds.join(",")})');
-    for (final category in defaultCategories) {
-      await db.insert(tableTransactionCategories, category.toJson());
-    }
+    try {
+      for (final category in defaultCategories) {
+        await db.insert(tableTransactionCategories, category.toJson());
+      }
+    } catch (_) {}
   }
 
   Future<Either<Failure, tr.Transaction>> addTransaction(AddTransactionParams params) async {
@@ -227,6 +225,7 @@ class TransactionsDatabase {
     try {
       final database = await this.database;
       final category = await _getTransactionCategory(params.id);
+
       await database.update(
         tableTransactionCategories,
         category
@@ -241,6 +240,8 @@ class TransactionsDatabase {
         whereArgs: [params.id],
       );
       final updatedCategory = await _getTransactionCategory(params.id);
+      log(updatedCategory);
+      log(await getTransactionCategories());
       return Right(updatedCategory);
     } catch (e) {
       return Left(DatabaseFailure(
