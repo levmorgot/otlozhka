@@ -36,19 +36,10 @@ class TransactionPage extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                Text('${transaction.amount.toStringAsFixed(2)} ₽'),
-                const Gap(20),
-                const Text(
-                  'Тип',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
                 Text(
-                  category.type == TransactionType.income ? 'Доходы' : 'Расходы',
+                  '${transaction.amount.toStringAsFixed(2)} ₽',
                   style: TextStyle(
-                    color: category.type == TransactionType.income ? Colors.green : Colors.red,
+                    color: transaction.type == TransactionType.income ? Colors.green : Colors.red,
                   ),
                 ),
                 const Gap(20),

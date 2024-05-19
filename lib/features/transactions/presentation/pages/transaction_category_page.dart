@@ -75,7 +75,7 @@ class TransactionCategoryPage extends StatelessWidget implements AutoRouteWrappe
                                 keyboardType: TextInputType.number,
                               ),
                             ),
-                            Text('₽ в месяц'),
+                            const Text('₽ в месяц'),
                           ],
                         ),
                       ),
@@ -110,31 +110,34 @@ class TransactionCategoryPage extends StatelessWidget implements AutoRouteWrappe
                 const Gap(20),
                 Expanded(
                   child: PeriodButtons(
-                    body: BlocBuilder<TransactionsOfCategoryBloc, TransactionsState>(builder: (context, state) {
-                      if (state is TransactionsEmptyState) {
-                        BlocProvider.of<TransactionsOfCategoryBloc>(context).add(GetTransactionsByCategoryEvent(params: oneMonth(), category: category));
-                      }
-                      if (state is TransactionsOfCategoryLoadedState) {
-                        final transactions = state.transactions;
-                        return transactions.isNotEmpty
-                            ? ListView.separated(
-                                itemBuilder: (context, index) {
-                                  return TransactionCard(transaction: transactions[index], category: category);
-                                },
-                                separatorBuilder: (context, index) {
-                                  return const SizedBox(height: 6);
-                                },
-                                itemCount: transactions.length,
-                              )
-                            : Center(
-                                child: Text('Транзакций нет'),
-                              );
-                      } else if (state is TransactionsLoadingState) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else {
-                        return const Text('');
-                      }
-                    }),
+                    body: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: BlocBuilder<TransactionsOfCategoryBloc, TransactionsState>(builder: (context, state) {
+                        if (state is TransactionsEmptyState) {
+                          BlocProvider.of<TransactionsOfCategoryBloc>(context).add(GetTransactionsByCategoryEvent(params: oneMonth(), category: category));
+                        }
+                        if (state is TransactionsOfCategoryLoadedState) {
+                          final transactions = state.transactions;
+                          return transactions.isNotEmpty
+                              ? ListView.separated(
+                                  itemBuilder: (context, index) {
+                                    return TransactionCard(transaction: transactions[index], category: category);
+                                  },
+                                  separatorBuilder: (context, index) {
+                                    return const SizedBox(height: 6);
+                                  },
+                                  itemCount: transactions.length,
+                                )
+                              : const Center(
+                                  child: Text('Транзакций нет'),
+                                );
+                        } else if (state is TransactionsLoadingState) {
+                          return const Center(child: CircularProgressIndicator());
+                        } else {
+                          return const Text('');
+                        }
+                      }),
+                    ),
                     updatePeriodTransactions: (index) {
                       final bloc = BlocProvider.of<TransactionsOfCategoryBloc>(context);
                       switch (index) {

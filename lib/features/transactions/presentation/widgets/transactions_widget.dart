@@ -81,7 +81,13 @@ class TransactionsWidget extends StatelessWidget {
                               if (transactions.isNotEmpty)
                                 Align(
                                   alignment: Alignment.center,
-                                  child: Text('${transactionsAmount.round()} ₽'),
+                                  child: Text(
+                                    '${transactionsAmount.round()} ₽',
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
                                 )
                             ],
                           ),
@@ -104,7 +110,7 @@ class TransactionsWidget extends StatelessWidget {
                             },
                             itemCount: transactions.length,
                           )
-                        : Center(
+                        : const Center(
                             child: Text('Транзакций нет'),
                           ),
                   ),
