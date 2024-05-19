@@ -15,25 +15,28 @@ class TransactionCategoriesWidget extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Wrap(
-            runSpacing: 20,
-            spacing: 15,
-            children: categories
-                .map((category) => InkWell(
-                      onTap: () {
-                       AutoRouter.of(context).push(TransactionCategoryRoute(category: category));
-                      },
-                      child: Column(
-                        children: [
-                          CategoryIcon(
-                            category: category,
-                            radius: 40,
-                          ),
-                          Text(category.name)
-                        ],
-                      ),
-                    ))
-                .toList()),
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: Wrap(
+              runSpacing: 20,
+              spacing: 15,
+              children: categories
+                  .map((category) => InkWell(
+                        onTap: () {
+                         AutoRouter.of(context).push(TransactionCategoryRoute(category: category));
+                        },
+                        child: Column(
+                          children: [
+                            CategoryIcon(
+                              category: category,
+                              radius: 40,
+                            ),
+                            Text(category.name)
+                          ],
+                        ),
+                      ))
+                  .toList()),
+        ),
       ),
     );
   }

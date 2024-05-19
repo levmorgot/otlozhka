@@ -18,44 +18,11 @@ class $AssetsImagesGen {
 class $AssetsImagesTransactionsGen {
   const $AssetsImagesTransactionsGen();
 
-  /// File path: assets/images/transactions/airplane.png
-  AssetGenImage get airplane => const AssetGenImage('assets/images/transactions/airplane.png');
-
-  /// File path: assets/images/transactions/art.png
-  AssetGenImage get art => const AssetGenImage('assets/images/transactions/art.png');
-
-  /// File path: assets/images/transactions/bags.png
-  AssetGenImage get bags => const AssetGenImage('assets/images/transactions/bags.png');
-
-  /// File path: assets/images/transactions/burger.png
-  AssetGenImage get burger => const AssetGenImage('assets/images/transactions/burger.png');
-
   /// File path: assets/images/transactions/cafe.png
   AssetGenImage get cafe => const AssetGenImage('assets/images/transactions/cafe.png');
 
-  /// File path: assets/images/transactions/candy.png
-  AssetGenImage get candy => const AssetGenImage('assets/images/transactions/candy.png');
-
-  /// File path: assets/images/transactions/cat.png
-  AssetGenImage get cat => const AssetGenImage('assets/images/transactions/cat.png');
-
-  /// File path: assets/images/transactions/clever.png
-  AssetGenImage get clever => const AssetGenImage('assets/images/transactions/clever.png');
-
-  /// File path: assets/images/transactions/crown.png
-  AssetGenImage get crown => const AssetGenImage('assets/images/transactions/crown.png');
-
-  /// File path: assets/images/transactions/diamond.png
-  AssetGenImage get diamond => const AssetGenImage('assets/images/transactions/diamond.png');
-
-  /// File path: assets/images/transactions/games.png
-  AssetGenImage get games => const AssetGenImage('assets/images/transactions/games.png');
-
   /// File path: assets/images/transactions/gifts.png
   AssetGenImage get gifts => const AssetGenImage('assets/images/transactions/gifts.png');
-
-  /// File path: assets/images/transactions/guitar.png
-  AssetGenImage get guitar => const AssetGenImage('assets/images/transactions/guitar.png');
 
   /// File path: assets/images/transactions/health.png
   AssetGenImage get health => const AssetGenImage('assets/images/transactions/health.png');
@@ -69,9 +36,6 @@ class $AssetsImagesTransactionsGen {
   /// File path: assets/images/transactions/money.png
   AssetGenImage get money => const AssetGenImage('assets/images/transactions/money.png');
 
-  /// File path: assets/images/transactions/mount.png
-  AssetGenImage get mount => const AssetGenImage('assets/images/transactions/mount.png');
-
   /// File path: assets/images/transactions/other.png
   AssetGenImage get other => const AssetGenImage('assets/images/transactions/other.png');
 
@@ -81,38 +45,11 @@ class $AssetsImagesTransactionsGen {
   /// File path: assets/images/transactions/products.png
   AssetGenImage get products => const AssetGenImage('assets/images/transactions/products.png');
 
-  /// File path: assets/images/transactions/screen.png
-  AssetGenImage get screen => const AssetGenImage('assets/images/transactions/screen.png');
-
   /// File path: assets/images/transactions/study.png
   AssetGenImage get study => const AssetGenImage('assets/images/transactions/study.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [
-        airplane,
-        art,
-        bags,
-        burger,
-        cafe,
-        candy,
-        cat,
-        clever,
-        crown,
-        diamond,
-        games,
-        gifts,
-        guitar,
-        health,
-        home,
-        leisure,
-        money,
-        mount,
-        other,
-        percent,
-        products,
-        screen,
-        study
-      ];
+  List<AssetGenImage> get values => [cafe, gifts, health, home, leisure, money, other, percent, products, study];
 }
 
 class Assets {

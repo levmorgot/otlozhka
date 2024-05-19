@@ -101,7 +101,7 @@ class StatisticPage extends StatelessWidget {
                                               Align(
                                                 alignment: Alignment.center,
                                                 child: Text(
-                                                  '${allAmount > 0 ? '+' : '-'}${allAmount.round()} ₽',
+                                                  '${allAmount > 0 ? '+' : ''}${allAmount.round()} ₽',
                                                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: allAmount > 0 ? Colors.green : Colors.red),
                                                 ),
                                               )

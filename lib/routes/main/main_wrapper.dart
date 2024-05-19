@@ -54,11 +54,11 @@ class _MainWrapperPageState extends State<MainWrapperPage> {
             ),
             BottomNavigationBarItem(
               label: 'Категории',
-              icon: Container(margin: const EdgeInsets.only(bottom: 2), child: const Icon(Icons.monetization_on_outlined)),
+              icon: Container(margin: const EdgeInsets.only(bottom: 2), child: const Icon(Icons.category)),
             ),
             BottomNavigationBarItem(
               label: 'Статистика',
-              icon: Container(margin: const EdgeInsets.only(bottom: 2), child: const Icon(Icons.monetization_on_outlined)),
+              icon: Container(margin: const EdgeInsets.only(bottom: 2), child: const Icon(Icons.area_chart)),
             ),
           ],
         );
