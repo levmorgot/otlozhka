@@ -8,5 +8,6 @@ final mainRouter = AutoRoute(
   children: [
     transactionsRouter,
     AutoRoute(page: TransactionCategoriesRoute.page),
+    AutoRoute(page: StatisticRoute.page),
   ],
 );
