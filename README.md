@@ -1,6 +1,6 @@
 # otlozhka
 
-Test project "Бюджетный трекер"
+"Бюджетный трекер"
 
 ## Getting Started
 
