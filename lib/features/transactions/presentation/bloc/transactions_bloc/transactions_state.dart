@@ -16,16 +16,18 @@ class TransactionsLoadingState extends TransactionsState {}
 class TransactionsLoadedState extends TransactionsState {
   final List<Transaction> incomeTransactions;
   final List<Transaction> expenseTransactions;
+  final double amount;
   final PeriodParams lastPeriod;
 
   const TransactionsLoadedState({
     required this.incomeTransactions,
     required this.expenseTransactions,
+    required this.amount,
     required this.lastPeriod,
   });
 
   @override
-  List<Object> get props => [incomeTransactions, expenseTransactions];
+  List<Object> get props => [incomeTransactions, expenseTransactions, amount];
 }
 
 class TransactionsOfCategoryLoadedState extends TransactionsState {

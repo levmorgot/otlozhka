@@ -54,23 +54,12 @@ class _TransactionsPageState extends State<TransactionsPage> with TickerProvider
               BlocBuilder<TransactionsBloc, TransactionsState>(
                   builder: (context, state) {
                     if (state is TransactionsLoadedState) {
-                      final incomeTransactions = state.incomeTransactions;
-                      final expenseTransactions = state.expenseTransactions;
-                      double incomeTransactionsAmount = 0;
-                      double expenseTransactionsAmount = 0;
-                      for (var transaction in incomeTransactions) {
-                        incomeTransactionsAmount+=transaction.amount;
-                      }
-                      for (var transaction in expenseTransactions) {
-                        expenseTransactionsAmount+=transaction.amount;
-                      }
-                      final allAmount = incomeTransactionsAmount - expenseTransactionsAmount;
-                      return Text('${allAmount.toStringAsFixed(2)} ₽', style: TextStyle(
-                        color: allAmount > 0 ? Colors.green : Colors.red,
+                      return Text('${state.amount.toStringAsFixed(2)} ₽', style: TextStyle(
+                        color: state.amount > 0 ? Colors.green : Colors.red,
                       ),);
                     }
                     if (state is TransactionsLoadingState) {
-                      return const CircularProgressIndicator();
+                      return const Text('');
 
                     }
                     return const SizedBox();

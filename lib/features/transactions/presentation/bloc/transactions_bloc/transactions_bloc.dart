@@ -61,7 +61,6 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
       });
     });
     on<GetTransactionsEvent>((event, emit) async {
-      emit(TransactionsLoadingState());
       final failureOrTransactions = await getTransactions(event.params);
 
       failureOrTransactions.fold(
@@ -70,9 +69,22 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
               )), (transactions) {
         final incomeTransactions = transactions.where((transaction) => transaction.type == TransactionType.income).toList();
         final expenseTransactions = transactions.where((transaction) => transaction.type == TransactionType.expense).toList();
+        double incomeTransactionsAmount = 0;
+        double expenseTransactionsAmount = 0;
+        for (var transaction in incomeTransactions) {
+          incomeTransactionsAmount += transaction.amount;
+        }
+        for (var transaction in expenseTransactions) {
+          expenseTransactionsAmount += transaction.amount;
+        }
+        emit(TransactionsLoadingState());
+
+        final allAmount = incomeTransactionsAmount - expenseTransactionsAmount;
+
         emit(TransactionsLoadedState(
           incomeTransactions: incomeTransactions,
           expenseTransactions: expenseTransactions,
+          amount: allAmount,
           lastPeriod: event.params,
         ));
       });
